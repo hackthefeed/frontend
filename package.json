@@ -11,7 +11,7 @@
 		"lint": "eslint ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^1.0.0",
+		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.0.0",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
@@ -26,5 +26,11 @@
 		"typescript": "^4.9.3",
 		"vite": "^4.0.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@popperjs/core": "^2.11.6",
+		"classnames": "^2.3.2",
+		"flowbite": "^1.6.3",
+		"flowbite-svelte": "^0.30.6"
+	}
 }
