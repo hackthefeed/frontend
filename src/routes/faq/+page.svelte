@@ -23,7 +23,7 @@
 	}
 </script>
 
-<Header route="home" loggedIn={key !== null} />
+<Header route="faq" loggedIn={key !== null} />
 
 <div class="w-2/3 max-w-4xl m-auto mt-24">
 	<Heading customSize="text-9xl text-center font-bold mb-16">FAQ</Heading>
