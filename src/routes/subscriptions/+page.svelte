@@ -13,6 +13,7 @@
 	import Header from '$/components/Header.svelte';
 	import { onMount } from 'svelte/internal';
 	import { Card, Button, Toggle, Heading } from 'flowbite-svelte';
+	import { goto } from '$app/navigation';
 
 	let key: string | null = null;
 	let posts: Post[] = [];
@@ -20,6 +21,11 @@
 
 	onMount(() => {
 		key = localStorage.getItem('key');
+
+		if (key === null) {
+			return goto('/login');
+		}
+
 		socket = new WebSocket(`ws://api.hackthefeed.com/socket?key=${key}`);
 
 		socket.addEventListener('message', event => {

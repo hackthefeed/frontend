@@ -19,6 +19,7 @@
 		Checkbox,
 		TableSearch,
 	} from 'flowbite-svelte';
+	import { goto } from '$app/navigation';
 
 	let key: string | null = null;
 	let producers: Producer[] = [];
@@ -26,6 +27,10 @@
 
 	onMount(() => {
 		key = localStorage.getItem('key');
+
+		if (key === null) {
+			return goto('/login');
+		}
 
 		getProducers();
 	});
