@@ -12,7 +12,7 @@
 <script lang="ts">
 	import Header from '$/components/Header.svelte';
 	import { onMount } from 'svelte/internal';
-	import { Card, Button, Toggle, Heading } from 'flowbite-svelte';
+	import { Button, Heading } from 'flowbite-svelte';
 	import { goto } from '$app/navigation';
 
 	let key: string | null = null;

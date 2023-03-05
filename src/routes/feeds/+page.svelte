@@ -2,6 +2,7 @@
 	type Producer = {
 		id: number;
 		name: string;
+		subscribed: boolean;
 	};
 </script>
 
@@ -16,14 +17,11 @@
 		TableBodyRow,
 		TableHead,
 		TableHeadCell,
-		Checkbox,
-		TableSearch,
 	} from 'flowbite-svelte';
 	import { goto } from '$app/navigation';
 
 	let key: string | null = null;
 	let producers: Producer[] = [];
-	let subscriptions = new Set<number>();
 
 	onMount(() => {
 		key = localStorage.getItem('key');
@@ -35,13 +33,9 @@
 		getProducers();
 	});
 
-	// https://api.hackthefeed.com/docs/static/index.html
-	// api.hackthefeed.com/me/missing_subscriptions
-	// api.hackthefeed.com/feed/subscribe
-
 	async function getProducers() {
 		const response = await fetch(
-			`https://api.hackthefeed.com/me/missing_subscriptions?key=${key}`
+			`https://api.hackthefeed.com/me/subscriptions?key=${key}`
 		);
 
 		const data = await response.json();
@@ -49,20 +43,36 @@
 		producers = data.data;
 	}
 
-	function subscribe(id: number) {
+	function subscribe(producer: Producer) {
 		fetch('https://api.hackthefeed.com/feed/subscribe', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				producerId: id,
+				producerId: producer.id,
 				key,
 			}),
 		});
 
-		subscriptions.add(id);
-		subscriptions = subscriptions;
+		producer.subscribed = true;
+		producers = producers;
+	}
+
+	function unsubscribe(producer: Producer) {
+		fetch('https://api.hackthefeed.com/feed/unsubscribe', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				producerId: producer.id,
+				key,
+			}),
+		});
+
+		producer.subscribed = false;
+		producers = producers;
 	}
 </script>
 
@@ -83,11 +93,12 @@
 						<TableBodyCell>{producer.name}</TableBodyCell>
 						<TableBodyCell>
 							<Button
-								on:click={() => subscribe(producer.id)}
-								disabled={subscriptions.has(producer.id)}
-								>{subscriptions.has(producer.id)
-									? 'Subscribed'
-									: 'Subscribe'}</Button
+								on:click={() =>
+									producer.subscribed
+										? unsubscribe(producer)
+										: subscribe(producer)}
+								color={producer.subscribed ? 'dark' : 'blue'}
+								>{producer.subscribed ? 'Unsubscribe' : 'Subscribe'}</Button
 							>
 						</TableBodyCell>
 					</TableBodyRow>

@@ -44,7 +44,7 @@
 		if (data.success) {
 			localStorage.setItem('key', data.user.key);
 
-			goto('/subscriptions');
+			goto('/feed');
 		} else {
 			error = data.message;
 		}

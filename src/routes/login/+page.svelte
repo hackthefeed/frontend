@@ -20,15 +20,6 @@
 	let error = false;
 
 	async function logIn() {
-		// log in to https://api.hackthefeed.com/login
-		// store the response key in localStorage
-		// redirect to /subscriptions
-		// https://api.hackthefeed.com/docs/static/index.html
-		// send POST request to URL ^, with body
-		// { username: email, password: password }
-		// parse response as json
-		// store response.key in localStorage
-
 		const response = await fetch('https://api.hackthefeed.com/login', {
 			method: 'POST',
 			body: JSON.stringify({
@@ -47,7 +38,7 @@
 		error = false;
 		localStorage.setItem('key', data.key);
 
-		goto('/subscriptions');
+		goto('/feed');
 	}
 </script>
 
