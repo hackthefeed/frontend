@@ -5,6 +5,7 @@
 		content: string;
 		createdAt: string;
 		updatedAt: string;
+		url: string;
 	};
 </script>
 
@@ -46,11 +47,13 @@
 		{#if posts.length > 0}
 			{#each posts as post}
 				<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-					<h5
-						class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-					>
-						{@html post.title}
-					</h5>
+					<a href={post.url}>
+						<h5
+							class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+						>
+							{@html post.title}
+						</h5>
+					</a>
 					<p
 						class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight"
 					>
