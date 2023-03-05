@@ -38,7 +38,7 @@
 				{#if key === null}
 					You can sign up by <a href="/register" class="underline"
 						>clicking here</a
-					> or the "Log in" in the top right.
+					> or the "Log in" button in the top right.
 				{:else}
 					You're already logged in!
 				{/if}
