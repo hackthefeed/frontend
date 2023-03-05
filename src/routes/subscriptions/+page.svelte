@@ -42,23 +42,23 @@
 <Header route="subscriptions" />
 
 {#if key}
-	{#if posts.length > 0}
-		{#each posts as post}
-			<Card href="/" horizontal>
-				<h5
-					class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-				>
-					{post.title}
-				</h5>
-				<p
-					class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight"
-				>
-					{@html post.content}
-				</p>
-			</Card>
-		{/each}
-	{:else}
-		<div class="m-auto w-1/2 mt-1/4">
+	<div class="m-auto w-1/2 mt-1/4 grid gap-6 justify-center">
+		{#if posts.length > 0}
+			{#each posts as post}
+				<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+					<h5
+						class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+					>
+						{@html post.title}
+					</h5>
+					<p
+						class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight"
+					>
+						{@html post.content}
+					</p>
+				</div>
+			{/each}
+		{:else}
 			<Heading customSize="text-4xl font-bold">
 				You don't have any subscriptions yet!
 			</Heading>
@@ -78,6 +78,6 @@
 					/>
 				</svg>
 			</Button>
-		</div>
-	{/if}
+		{/if}
+	</div>
 {/if}
