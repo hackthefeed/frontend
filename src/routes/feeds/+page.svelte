@@ -8,7 +8,6 @@
 
 <script lang="ts">
 	import Header from '$/components/Header.svelte';
-	import { onMount } from 'svelte/internal';
 	import {
 		Button,
 		Table,
@@ -19,19 +18,20 @@
 		TableHeadCell,
 	} from 'flowbite-svelte';
 	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
 
 	let key: string | null = null;
 	let producers: Producer[] = [];
 
-	onMount(() => {
+	if (browser) {
 		key = localStorage.getItem('key');
 
 		if (key === null) {
-			return goto('/login');
+			goto('/login');
+		} else {
+			getProducers();
 		}
-
-		getProducers();
-	});
+	}
 
 	async function getProducers() {
 		const response = await fetch(
@@ -76,7 +76,7 @@
 	}
 </script>
 
-<Header route="feeds" />
+<Header route="feeds" loggedIn={key !== null} />
 
 {#if key}
 	{#if producers.length > 0}

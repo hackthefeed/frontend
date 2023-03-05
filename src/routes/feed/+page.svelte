@@ -6,34 +6,34 @@
 		createdAt: string;
 		updatedAt: string;
 		url: string;
+		thumbnail?: string;
 	};
 </script>
 
 <script lang="ts">
 	import Header from '$/components/Header.svelte';
-	import { onMount } from 'svelte/internal';
 	import { Button, Heading } from 'flowbite-svelte';
 	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
 
 	let key: string | null = null;
 	let posts: Post[] = [];
 	let socket: WebSocket;
 
-	onMount(() => {
+	if (browser) {
 		key = localStorage.getItem('key');
 
 		if (key === null) {
-			return goto('/login');
+			goto('/login');
+		} else {
+			socket = new WebSocket(`ws://api.hackthefeed.com/socket?key=${key}`);
+			socket.addEventListener('message', event => {
+				console.log(event);
+			});
+
+			fetchSubscriptions();
 		}
-
-		socket = new WebSocket(`ws://api.hackthefeed.com/socket?key=${key}`);
-
-		socket.addEventListener('message', event => {
-			console.log(event);
-		});
-
-		fetchSubscriptions();
-	});
+	}
 
 	async function fetchSubscriptions() {
 		const response = await fetch(
@@ -46,7 +46,7 @@
 	}
 </script>
 
-<Header route="subscriptions" />
+<Header route="subscriptions" loggedIn={key !== null} />
 
 {#if key}
 	<div class="m-auto w-1/2 mt-1/4 grid gap-6 justify-center">
@@ -55,7 +55,7 @@
 				<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
 					<a href={post.url}>
 						<h5
-							class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+							class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline"
 						>
 							{@html post.title}
 						</h5>

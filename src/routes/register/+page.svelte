@@ -25,8 +25,6 @@
 	let error: string | undefined;
 
 	async function register() {
-		console.log('registering', displayName, username, email, password);
-
 		const response = await fetch('https://api.hackthefeed.com/register', {
 			method: 'POST',
 			body: JSON.stringify({

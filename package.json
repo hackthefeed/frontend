@@ -30,6 +30,7 @@
 		"@sveltejs/adapter-cloudflare": "^2.2.0",
 		"classnames": "^2.3.2",
 		"flowbite": "^1.6.3",
-		"flowbite-svelte": "^0.30.6"
+		"flowbite-svelte": "^0.30.6",
+		"svelte-time": "^0.7.1"
 	}
 }

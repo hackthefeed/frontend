@@ -1,22 +1,27 @@
 <script>
 	import Header from '../components/Header.svelte';
 	import { page } from '$app/stores';
-	import { Button, ButtonGroup, Heading, P } from 'flowbite-svelte';
+	import { Button, Heading, P } from 'flowbite-svelte';
+	import { browser } from '$app/environment';
 
-	const key = $page.url.searchParams.get('key');
+	let key = $page.url.searchParams.get('key');
 
-	if (key) {
-		$page.url.searchParams.delete('key');
-		localStorage.setItem('key', key);
+	if (browser) {
+		if (key) {
+			$page.url.searchParams.delete('key');
+			localStorage.setItem('key', key);
+		} else {
+			key = localStorage.getItem('key');
+		}
 	}
 </script>
 
-<Header route="home" />
+<Header route="home" loggedIn={key !== null} />
 
 <div class="w-2/3 max-w-4xl m-auto mt-24">
 	<span class="text-center flex gap-10 flex-col">
 		<Heading customSize="text-8xl font-bold">Welcome to HackTheFeed</Heading>
-		<P class="mb-6 text-lg lg:text-xl sm:px-16 dark:text-slate-300">
+		<P class="mb-6 text-lg lg:text-xl sm:px-16 dark:text-slate-400">
 			We're glad you're here. We're working hard to make this the best
 			cybersecurity news aggregator on the web.
 		</P>

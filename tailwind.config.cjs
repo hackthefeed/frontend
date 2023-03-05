@@ -4,7 +4,11 @@ const config = {
 		"./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}",
 	],
 	theme: {
-		extend: {},
+		extend: {
+			fontSize: {
+				"10xl": "12rem",
+			},
+		},
 	},
 	plugins: [
 		require('flowbite/plugin')
