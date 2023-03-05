@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	export type Route = 'home' | 'feeds' | 'subscriptions' | 'none';
+	export type Route = 'home' | 'feeds' | 'subscriptions' | 'faq' | 'none';
 </script>
 
 <script lang="ts">
@@ -50,6 +50,7 @@
 		<NavLi href="/" active={route === 'home'}>Home</NavLi>
 		<NavLi href="/feeds" active={route === 'feeds'}>Feeds</NavLi>
 		<NavLi href="/feed" active={route === 'subscriptions'}>My Feed</NavLi>
+		<NavLi href="/faq" active={route === 'faq'}>FAQ</NavLi>
 		<NavLi href="https://api.hackthefeed.com/docs">API</NavLi>
 	</NavUl>
 </Navbar>
