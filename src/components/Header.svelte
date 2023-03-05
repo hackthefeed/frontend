@@ -49,9 +49,7 @@
 	<NavUl {hidden} class="order-1">
 		<NavLi href="/" active={route === 'home'}>Home</NavLi>
 		<NavLi href="/feeds" active={route === 'feeds'}>Feeds</NavLi>
-		<NavLi href="/subscriptions" active={route === 'subscriptions'}
-			>My Feed</NavLi
-		>
+		<NavLi href="/feed" active={route === 'subscriptions'}>My Feed</NavLi>
 		<NavLi href="https://api.hackthefeed.com/docs">API</NavLi>
 	</NavUl>
 </Navbar>
