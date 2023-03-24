@@ -17,7 +17,7 @@
 </script>
 
 <svelte:head>
-	<title>FAW</title>
+	<title>FAQ</title>
 </svelte:head>
 
 <Header loggedIn={key !== null} />
