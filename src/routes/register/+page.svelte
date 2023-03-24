@@ -50,7 +50,7 @@
 
 <Header />
 
-<div class="w-96 w-max-1/2 mt-16 mx-auto mb-64">
+<div class="w-96 w-max-1/2 mt-16 mx-auto h-screen">
 	<form class="flex flex-col gap-6">
 		<h1 class="text-center text-4xl font-bold">Create an account</h1>
 

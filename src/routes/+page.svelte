@@ -17,7 +17,7 @@
 
 <Header loggedIn={key !== null} />
 
-<div class="w-2/3 max-w-4xl m-auto mt-28 mb-64">
+<div class="w-2/3 max-w-4xl m-auto mt-28 h-screen">
 	<span class="text-center flex gap-10 flex-col">
 		<h1 class="text-4xl md:text-6xl lg:text-8xl font-bold">
 			Welcome to <span class="text-primary">HackTheFeed</span>

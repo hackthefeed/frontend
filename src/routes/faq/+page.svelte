@@ -18,7 +18,7 @@
 
 <Header loggedIn={key !== null} />
 
-<div class="w-2/3 max-w-4xl m-auto mt-24">
+<div class="w-2/3 max-w-4xl m-auto mt-24 h-screen">
 	<h1 class="text-9xl text-center font-bold mb-16">FAQ</h1>
 
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -54,7 +54,7 @@
 	<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 	<div
 		tabindex="0"
-		class="collapse collapse-plus border border-base-300 bg-base-100 rounded-box mb-40"
+		class="collapse collapse-plus border border-base-300 bg-base-100 rounded-box"
 	>
 		<div class="collapse-title text-xl font-medium">How do I use it?</div>
 		<div class="collapse-content">
