@@ -154,6 +154,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>My Feed</title>
+</svelte:head>
+
 <Header loggedIn={key !== null} />
 
 <input type="checkbox" id="edit-note-modal" class="modal-toggle" />

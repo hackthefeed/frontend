@@ -41,6 +41,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Log in</title>
+</svelte:head>
+
 <Header />
 
 <div class="w-96 w-max-1/2 mt-16 mx-auto h-screen">

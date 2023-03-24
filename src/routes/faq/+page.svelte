@@ -16,6 +16,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>FAW</title>
+</svelte:head>
+
 <Header loggedIn={key !== null} />
 
 <div class="w-2/3 max-w-4xl m-auto mt-24 h-screen">

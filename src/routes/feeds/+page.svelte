@@ -67,6 +67,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Feeds</title>
+</svelte:head>
+
 <Header loggedIn={key !== null} />
 
 {#if key}
