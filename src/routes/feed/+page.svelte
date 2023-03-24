@@ -24,12 +24,16 @@
 	import { browser } from '$app/environment';
 	import { io } from 'socket.io-client';
 	import Time from 'svelte-time';
+	import InfiniteScroll from 'svelte-infinite-scroll';
 
 	import type { Socket } from 'socket.io-client';
 
 	let key: string | null = null;
 	let posts: Post[] | null = null;
 	let socket: Socket;
+	let page = 1;
+	let loading = false;
+	let end = false;
 
 	if (browser) {
 		key = localStorage.getItem('key');
@@ -56,13 +60,32 @@
 	}
 
 	async function fetchSubscriptions() {
+		console.log('fetching subscriptions');
+		// don't fetch if we're already loading
+		if (loading || end) return;
+
+		const usePage = page++;
+
+		loading = true;
+
 		const response = await fetch(
-			`https://api.hackthefeed.com/me/posts?key=${key}`
+			`https://api.hackthefeed.com/me/posts?key=${key}&page=${usePage}`
 		);
 
 		const data = await response.json();
 
-		posts = data.data;
+		if (data.data.length === 0) {
+			end = true;
+		}
+
+		if (posts === null) {
+			posts = data.data;
+		} else {
+			posts.push(...data.data);
+			posts = posts;
+		}
+
+		loading = false;
 	}
 
 	let noteData: Post | null = null;
@@ -263,9 +286,9 @@
 
 {#if key}
 	{#if posts !== null && posts.length > 0}
-		<div class="m-auto w-1/2 mt-1/4 grid gap-6 justify-center">
+		<div class="mx-auto w-full sm:max-w-prose my-16 grid gap-6 justify-center">
 			{#each posts as post}
-				<div class="bg-base-200 p-4 rounded-lg max-w-prose">
+				<div class="bg-base-200 p-4 rounded-lg">
 					<a href={post.url}>
 						<h5 class="mb-2 text-2xl font-bold tracking-tight hover:underline">
 							{@html post.title}
@@ -301,6 +324,21 @@
 				</div>
 			{/each}
 		</div>
+		{#if loading}
+			<div class="grid place-items-center w-screen h-32 -mt-8">
+				<div
+					class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-primary w-8 h-8"
+					role="status"
+					aria-label="loading"
+				/>
+			</div>
+		{:else}
+			<InfiniteScroll
+				threshold={1_000}
+				on:loadMore={fetchSubscriptions}
+				window
+			/>
+		{/if}
 	{:else if posts !== null && posts.length === 0}
 		<div class="h-screen w-screen grid place-items-center -mt-8">
 			<span>

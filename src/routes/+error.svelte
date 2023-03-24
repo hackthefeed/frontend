@@ -13,10 +13,12 @@
 
 <Header loggedIn={key !== null} />
 
-<div class="mx-auto max-w-[85rem] px-20 gap-10 my-20 mb-40">
+<div class="mx-auto max-w-[85rem] px-20 gap-10 mt-20 h-screen">
 	<span>
-		<h1 class="text-10xl font-bold">404</h1>
-		<p class="lg:text-4xl sm:text-3xl text-2xl -translate-y-16 font-semibold">
+		<h1 class="text-8xl lg:text-10xl font-bold">404</h1>
+		<p
+			class="lg:text-4xl sm:text-3xl text-2xl lg:-translate-y-16 font-semibold"
+		>
 			You're not supposed to be here.
 		</p>
 
