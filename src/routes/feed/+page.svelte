@@ -265,7 +265,7 @@
 	{#if posts !== null && posts.length > 0}
 		<div class="m-auto w-1/2 mt-1/4 grid gap-6 justify-center">
 			{#each posts as post}
-				<div class="bg-base-200 p-4 rounded-lg">
+				<div class="bg-base-200 p-4 rounded-lg max-w-prose">
 					<a href={post.url}>
 						<h5 class="mb-2 text-2xl font-bold tracking-tight hover:underline">
 							{@html post.title}
