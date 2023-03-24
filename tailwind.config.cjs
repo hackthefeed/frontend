@@ -11,9 +11,18 @@ const config = {
 		},
 	},
 	plugins: [
-		require('flowbite/plugin')
+		require('daisyui'),
 	],
-	darkMode: 'media',
+	daisyui: {
+		themes: [
+			'black',
+			'synthwave',
+			'lofi',
+			'pastel',
+			'light',
+			'dark',
+		]
+	}
 };
 
 module.exports = config;

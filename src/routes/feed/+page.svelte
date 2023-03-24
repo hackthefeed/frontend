@@ -20,15 +20,6 @@
 
 <script lang="ts">
 	import Header from '$/components/Header.svelte';
-	import {
-		Button,
-		Heading,
-		Hr,
-		Modal,
-		Textarea,
-		Label,
-		Input,
-	} from 'flowbite-svelte';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import { io } from 'socket.io-client';
@@ -72,18 +63,11 @@
 	}
 
 	let noteData: Post | null = null;
-	let openNoteModal = false;
-	let openNoteCreationModal = false;
 
 	function viewNotes(post: Post) {
 		noteData = post;
-		openNoteModal = true;
-		openNoteCreationModal = false;
-	}
-
-	function createNote() {
-		openNoteModal = false;
-		openNoteCreationModal = true;
+		//openNoteModal = true;
+		//openNoteCreationModal = false;
 	}
 
 	let noteContent = '';
@@ -113,8 +97,6 @@
 		});
 
 		noteData = noteData;
-		openNoteModal = true;
-		openNoteCreationModal = false;
 	}
 
 	function encrypt(content: string, key: string) {
@@ -172,103 +154,131 @@
 	}
 </script>
 
-<Header route="subscriptions" loggedIn={key !== null} />
+<Header loggedIn={key !== null} />
 
-<Modal title="Your note" bind:open={openNoteModal} size="xl">
-	{#if noteData?.notes?.[0] !== undefined}
-		<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg w-96">
-			<p
-				class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight"
-			>
-				{noteData.notes[0].decrypted ?? noteData.notes[0].content}
-			</p>
+<input type="checkbox" id="edit-note-modal" class="modal-toggle" />
+<div class="modal">
+	<div class="modal-box relative">
+		<label
+			for="edit-note-modal"
+			class="btn btn-sm btn-circle absolute right-2 top-2">✕</label
+		>
+
+		<h3 class="font-bold text-lg">Your note</h3>
+		{#if noteData?.notes?.[0] !== undefined}
+			<div class="p-4 rounded-lg w-96">
+				<p>
+					{noteData.notes[0].decrypted ?? noteData.notes[0].content}
+				</p>
+			</div>
+			<label class="label" for="password">
+				<span class="label-text">Decryption key</span>
+			</label>
+			<input
+				type="password"
+				id="password"
+				placeholder="•••••••••"
+				class="input input-bordered w-full"
+				bind:value={decryptionKey}
+			/>
+		{:else}
+			<p>You don't have any notes.</p>
+		{/if}
+		<div class="modal-action">
+			<label for="new-note-modal" class="btn btn-success">New note</label>
+
+			{#if decryptionKey && noteData?.notes.length}
+				<button
+					on:click={() => {
+						const note = noteData?.notes[0];
+
+						if (note) {
+							note.decrypted = decrypt(note.content, decryptionKey);
+							noteData = noteData;
+						}
+					}}
+					class="btn btn-error"
+				>
+					Decrypt
+				</button>
+			{/if}
 		</div>
-	{:else}
-		<p
-			class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight w-96"
+	</div>
+</div>
+
+<input type="checkbox" id="new-note-modal" class="modal-toggle" />
+<div class="modal">
+	<div class="modal-box relative">
+		<label
+			for="new-note-modal"
+			class="btn btn-sm btn-circle absolute right-2 top-2">✕</label
 		>
-			You don't have any notes.
-		</p>
-	{/if}
 
-	<span>
-		<Label for="website" class="mb-2 mt-2">Decryption key</Label>
-		<Input
-			type="password"
-			id="key"
-			placeholder="•••••••••"
-			required
-			bind:value={decryptionKey}
-		/>
-	</span>
+		<h3 class="font-bold text-lg pb-4">Create new note</h3>
 
-	<svelte:fragment slot="footer">
-		<Button on:click={createNote} color="green">New note</Button>
-		<Button
-			on:click={() => {
-				const note = noteData?.notes[0];
+		<span>
+			<label class="label" for="note-content">
+				<span class="label-text">Note content</span>
+			</label>
+			<textarea
+				id="note-content"
+				placeholder="Write here..."
+				rows="4"
+				class="textarea textarea-bordered w-full"
+				bind:value={noteContent}
+			/>
+		</span>
 
-				if (note) {
-					note.decrypted = decrypt(note.content, decryptionKey);
-					noteData = noteData;
-				}
-			}}
-			color="red">Decrypt</Button
-		>
-	</svelte:fragment>
-</Modal>
+		<span>
+			<label class="label" for="note-key">
+				<span class="label-text">Encryption key</span>
+			</label>
+			<input
+				type="password"
+				id="note-key"
+				placeholder="•••••••••"
+				required
+				class="input input-bordered w-full"
+				bind:value={encryptionKey}
+			/>
+		</span>
 
-<Modal title="Create new note" bind:open={openNoteCreationModal} size="xl">
-	<span>
-		<Label for="textarea-id" class="w-96 mb-2">Your note content</Label>
-		<Textarea
-			id="textarea-id"
-			placeholder="Write here..."
-			rows="4"
-			name="message"
-			bind:value={noteContent}
-		/>
-	</span>
-
-	<span>
-		<Label for="website" class="mb-2 mt-2">Encryption key</Label>
-		<Input
-			type="password"
-			id="key"
-			placeholder="•••••••••"
-			required
-			bind:value={encryptionKey}
-		/>
-	</span>
-
-	<svelte:fragment slot="footer">
-		<Button on:click={submitNoteCreation} color="green">Create note</Button>
-	</svelte:fragment>
-</Modal>
+		{#if noteContent && encryptionKey}
+			<div class="modal-action">
+				<label
+					for="new-note-modal"
+					on:click={submitNoteCreation}
+					on:keydown
+					class="btn btn-success">Create note</label
+				>
+			</div>
+		{/if}
+	</div>
+</div>
 
 {#if key}
-	<div class="m-auto w-1/2 mt-1/4 grid gap-6 justify-center">
-		{#if posts.length > 0}
+	{#if posts.length > 0}
+		<div class="m-auto w-1/2 mt-1/4 grid gap-6 justify-center">
 			{#each posts as post}
-				<div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+				<div class="bg-base-200 p-4 rounded-lg">
 					<a href={post.url}>
-						<h5
-							class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:underline"
-						>
+						<h5 class="mb-2 text-2xl font-bold tracking-tight hover:underline">
 							{@html post.title}
 						</h5>
 					</a>
-					<p
-						class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight"
-					>
+					<p class="mb-3 font-normal leading-tight">
 						{@html post.content}
 					</p>
 
-					<Hr hrClass="my-2 bg-gray-200 rounded border-0 dark:bg-gray-700" />
-
 					<div class="float-left">
-						<Button size="sm" on:click={() => viewNotes(post)}>Edit note</Button
+						<label
+							for="edit-note-modal"
+							class="btn btn-sm btn-primary"
+							on:click={() => viewNotes(post)}
+							on:keydown
 						>
+							Edit note
+						</label>
 					</div>
 
 					<ul class="text-xs text-white/[.8] float-right">
@@ -285,26 +295,28 @@
 					</ul>
 				</div>
 			{/each}
-		{:else}
-			<Heading customSize="text-4xl font-bold sm:mt-8 md:mt-16 lg:mt-32">
-				You don't have any news yet!
-			</Heading>
-			<Button href="/feeds">
-				View available feeds
-				<svg
-					aria-hidden="true"
-					class="ml-2 -mr-1 w-5 h-5"
-					fill="currentColor"
-					viewBox="0 0 20 20"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<path
-						fill-rule="evenodd"
-						d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-						clip-rule="evenodd"
-					/>
-				</svg>
-			</Button>
-		{/if}
-	</div>
+		</div>
+	{:else}
+		<div class="h-screen w-screen grid place-items-center -mt-8">
+			<span>
+				<h1 class="text-4xl font-bold">You don't have any news yet!</h1>
+				<a href="/feeds" class="btn btn-primary w-full">
+					View available feeds
+					<svg
+						aria-hidden="true"
+						class="ml-2 -mr-1 w-5 h-5"
+						fill="currentColor"
+						viewBox="0 0 20 20"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				</a>
+			</span>
+		</div>
+	{/if}
 {/if}

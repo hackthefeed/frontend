@@ -1,56 +1,78 @@
-<script context="module" lang="ts">
-	export type Route = 'home' | 'feeds' | 'subscriptions' | 'faq' | 'none';
-</script>
-
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import Theme from './theme/Theme.svelte';
 
-	import {
-		Navbar,
-		NavBrand,
-		NavLi,
-		NavUl,
-		NavHamburger,
-		Button,
-	} from 'flowbite-svelte';
-
-	export let route: Route = 'home';
 	export let loggedIn = false;
 </script>
 
-<Navbar let:hidden let:toggle>
-	<NavBrand href="/">
-		<img
-			src="/logo.png"
-			class="mr-3 h-6 sm:h-9 rounded-full"
-			alt="HackTheFeed logo"
-		/>
-		<span
-			class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
-		>
-			HackTheFeed
-		</span>
-	</NavBrand>
-	<div class="flex md:order-2">
-		{#if !loggedIn}
-			<Button size="sm" href="/login">Log in</Button>
-		{:else}
-			<Button
-				size="sm"
-				on:click={() => {
-					localStorage.removeItem('key');
-					goto('/login');
-				}}>Log out</Button
+<div class="navbar bg-base-100">
+	<div class="navbar-start">
+		<div class="dropdown">
+			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+			<!-- svelte-ignore a11y-label-has-associated-control -->
+			<label tabindex="0" class="btn btn-ghost lg:hidden">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+					><path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4 6h16M4 12h8m-8 6h16"
+					/></svg
+				>
+			</label>
+			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+			<!-- svelte-ignore a11y-label-has-associated-control -->
+			<ul
+				tabindex="0"
+				class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 			>
-		{/if}
-
-		<NavHamburger on:click={toggle} />
+				<li><a href="/">Home</a></li>
+				<li><a href="/feeds">Feeds</a></li>
+				<li><a href="/feed">My Feed</a></li>
+				<li><a href="/faq">FAQ</a></li>
+				<li><a href="https://api.hackthefeed.com/docs">API</a></li>
+			</ul>
+		</div>
+		<a class="btn btn-ghost normal-case text-xl" href="/">
+			<svg
+				class="mr-3 h-6 sm:h-9 fill-accent"
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+			>
+				<path
+					d="M21,11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1L21,5V11M12,21C15.75,20 19,15.54 19,11.22V6.3L12,3.18V21Z"
+				/>
+			</svg>
+			<span class="text-accent">Hack</span>TheFeed
+		</a>
 	</div>
-	<NavUl {hidden} class="order-1">
-		<NavLi href="/" active={route === 'home'}>Home</NavLi>
-		<NavLi href="/feeds" active={route === 'feeds'}>Feeds</NavLi>
-		<NavLi href="/feed" active={route === 'subscriptions'}>My Feed</NavLi>
-		<NavLi href="/faq" active={route === 'faq'}>FAQ</NavLi>
-		<NavLi href="https://api.hackthefeed.com/docs">API</NavLi>
-	</NavUl>
-</Navbar>
+	<div class="navbar-center hidden lg:flex">
+		<ul class="menu menu-horizontal px-1">
+			<li><a href="/">Home</a></li>
+			<li><a href="/feeds">Feeds</a></li>
+			<li><a href="/feed">My Feed</a></li>
+			<li><a href="/faq">FAQ</a></li>
+			<li><a href="https://api.hackthefeed.com/docs">API</a></li>
+		</ul>
+	</div>
+	<div class="navbar-end flex gap-2">
+		<Theme />
+		{#if !loggedIn}
+			<a class="btn btn-primary rounded-full" href="/login">Log in</a>
+		{:else}
+			<a
+				class="btn btn-primary rounded-full"
+				on:click={() => localStorage.removeItem('key')}
+				href="/login"
+			>
+				Log out
+			</a>
+		{/if}
+	</div>
+</div>

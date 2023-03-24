@@ -15,7 +15,6 @@
 <script lang="ts">
 	import Header from '$/components/Header.svelte';
 	import { goto } from '$app/navigation';
-	import { Input, Label, Button, Heading, P } from 'flowbite-svelte';
 
 	let displayName = '';
 	let username = '';
@@ -49,65 +48,90 @@
 	}
 </script>
 
-<Header route="none" />
+<Header />
 
-<div
-	class="w-96 w-max-1/2 mt-32 mx-auto bg-gray-200 dark:bg-slate-800 p-5 rounded-lg"
->
-	<form>
-		<Heading class="text-center">Register</Heading>
-		<div class="grid gap-6 mb-6 md:grid-cols-2 mt-6">
-			<div>
-				<Label for="first_name" class="mb-2">Display name</Label>
-				<Input
+<div class="w-96 w-max-1/2 mt-16 mx-auto mb-64">
+	<form class="flex flex-col gap-6">
+		<h1 class="text-center text-4xl font-bold">Create an account</h1>
+
+		<div class="grid gap-6 md:grid-cols-2">
+			<div class="form-control w-full">
+				<label class="label" for="display-name">
+					<span class="label-text">Display name</span>
+				</label>
+				<input
 					type="text"
-					id="first_name"
-					placeholder="Hack The Feed"
+					id="display-name"
+					placeholder="Hack the Feed"
 					required
+					class="input input-bordered w-full input-primary"
 					bind:value={displayName}
 				/>
 			</div>
-			<div>
-				<Label for="last_name" class="mb-2">Username</Label>
-				<Input
+
+			<div class="form-control w-full">
+				<label class="label" for="username">
+					<span class="label-text">Username</span>
+				</label>
+				<input
 					type="text"
-					id="last_name"
+					id="username"
 					placeholder="hackthefeed"
 					required
+					class="input input-bordered w-full input-primary"
 					bind:value={username}
 				/>
 			</div>
 		</div>
-		<div class="mb-6">
-			<Label for="email" class="mb-2">Email address</Label>
-			<Input
+
+		<div class="form-control w-full">
+			<label class="label" for="email">
+				<span class="label-text">Email address</span>
+			</label>
+			<input
 				type="email"
 				id="email"
 				placeholder="hello@hackthefeed.com"
 				required
+				class="input input-bordered w-full {error
+					? 'input-error'
+					: 'input-primary'}"
 				bind:value={email}
 			/>
+			{#if error}
+				<label class="label" for="email">
+					<span class="label-text-alt text-error">{error}</span>
+				</label>
+			{/if}
 		</div>
-		<div class="mb-6">
-			<Label for="password" class="mb-2">Password</Label>
-			<Input
+
+		<div class="form-control w-full">
+			<label class="label" for="password">
+				<span class="label-text">Password</span>
+			</label>
+			<input
 				type="password"
 				id="password"
 				placeholder="•••••••••"
 				required
+				class="input input-bordered w-full input-primary"
 				bind:value={password}
 			/>
 		</div>
+
 		<div class="grid gap-2">
-			<Button type="submit" on:click={register} color="green">Register</Button>
+			<button
+				type="submit"
+				on:click={register}
+				color="green"
+				class="btn btn-accent">Register</button
+			>
 
 			<span class="mx-auto">
 				<a href="/login">
-					<P
-						color="hover:underline hover:cursor-pointer text-gray-400 dark:text-gray-300 text-sm"
-					>
+					<p class="hover:underline hover:cursor-pointer text-sm">
 						Already registered? Log in.
-					</P>
+					</p>
 				</a>
 			</span>
 		</div>

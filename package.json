@@ -26,12 +26,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@popperjs/core": "^2.11.6",
 		"@sveltejs/adapter-cloudflare": "^2.2.0",
-		"classnames": "^2.3.2",
-		"flowbite": "^1.6.3",
-		"flowbite-svelte": "^0.30.6",
+		"daisyui": "^2.51.5",
 		"socket.io-client": "^4.6.1",
-		"svelte-time": "^0.7.1"
+		"svelte-time": "^0.7.1",
+		"theme-change": "^2.5.0"
 	}
 }

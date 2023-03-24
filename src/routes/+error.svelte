@@ -1,7 +1,6 @@
 <script>
 	import Header from '../components/Header.svelte';
 	import { page } from '$app/stores';
-	import { Button, Heading, P } from 'flowbite-svelte';
 	import { browser } from '$app/environment';
 
 	const key = $page.url.searchParams.get('key');
@@ -12,20 +11,17 @@
 	}
 </script>
 
-<Header route="home" loggedIn={key !== null} />
+<Header loggedIn={key !== null} />
 
-<div
-	class="mx-auto max-w-[85rem] px-20 gap-10 my-20 text-left grid md:grid-cols-2"
->
+<div class="mx-auto max-w-[85rem] px-20 gap-10 my-20 mb-40">
 	<span>
-		<Heading customSize="text-10xl font-bold">404</Heading>
-		<P
-			color="text-gray-900 dark:text-gray-300 lg:text-4xl sm:text-3xl text-2xl -translate-y-16 font-semibold"
-			>You're not supposed to be here.</P
-		>
+		<h1 class="text-10xl font-bold">404</h1>
+		<p class="lg:text-4xl sm:text-3xl text-2xl -translate-y-16 font-semibold">
+			You're not supposed to be here.
+		</p>
 
 		<span class="float-middle">
-			<Button pill href="/">
+			<a href="/" class="btn btn-primary rounded-full">
 				<svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
 					<path
 						transform="scale(-1, 1) translate(-20, 0)"
@@ -35,7 +31,7 @@
 					/>
 				</svg>
 				Go back to safety
-			</Button>
+			</a>
 		</span>
 	</span>
 </div>

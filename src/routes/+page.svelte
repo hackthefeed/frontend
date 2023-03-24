@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Header from '../components/Header.svelte';
 	import { page } from '$app/stores';
-	import { Button, Heading, P } from 'flowbite-svelte';
 	import { browser } from '$app/environment';
 
 	let key: string | null = $page.url.searchParams.get('key');
@@ -16,20 +15,22 @@
 	}
 </script>
 
-<Header route="home" loggedIn={key !== null} />
+<Header loggedIn={key !== null} />
 
-<div class="w-2/3 max-w-4xl m-auto mt-24">
+<div class="w-2/3 max-w-4xl m-auto mt-28 mb-64">
 	<span class="text-center flex gap-10 flex-col">
-		<Heading customSize="text-8xl font-bold">Welcome to HackTheFeed</Heading>
-		<P class="mb-6 text-lg lg:text-xl sm:px-16 dark:text-slate-400">
+		<h1 class="text-4xl md:text-6xl lg:text-8xl font-bold">
+			Welcome to <span class="text-primary">HackTheFeed</span>
+		</h1>
+		<p class="mb-6 text-md md:text-lg lg:text-xl sm:px-16 text-left">
 			We're glad you're here. We're working hard to make this the best
 			cybersecurity news aggregator on the web.
-		</P>
+		</p>
 	</span>
 
 	{#if key === null}
 		<div class="flex flex-row justify-center gap-2">
-			<Button href="/register" color="blue" size="xl" pill>
+			<a href="/register" class="btn btn-accent rounded-full">
 				Create an account
 				<svg
 					aria-hidden="true"
@@ -44,7 +45,7 @@
 						clip-rule="evenodd"
 					/>
 				</svg>
-			</Button>
+			</a>
 		</div>
 	{/if}
 </div>
