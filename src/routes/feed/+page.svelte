@@ -37,7 +37,8 @@
 		if (key === null) {
 			goto('/login');
 		} else {
-			socket = io('ws://api.hackthefeed.com/socket', {
+			socket = io('wss://api.hackthefeed.com', {
+				path: '/socket/socket.io',
 				query: {
 					key,
 				},
