@@ -28,7 +28,7 @@
 	import type { Socket } from 'socket.io-client';
 
 	let key: string | null = null;
-	let posts: Post[] = [];
+	let posts: Post[] | null = null;
 	let socket: Socket;
 
 	if (browser) {
@@ -44,8 +44,10 @@
 			});
 
 			socket.on('postCreated', (post: Post) => {
-				posts.unshift(post);
-				posts = posts;
+				if (posts !== null) {
+					posts.unshift(post);
+					posts = posts;
+				}
 			});
 
 			fetchSubscriptions();
@@ -66,8 +68,6 @@
 
 	function viewNotes(post: Post) {
 		noteData = post;
-		//openNoteModal = true;
-		//openNoteCreationModal = false;
 	}
 
 	let noteContent = '';
@@ -257,7 +257,7 @@
 </div>
 
 {#if key}
-	{#if posts.length > 0}
+	{#if posts !== null && posts.length > 0}
 		<div class="m-auto w-1/2 mt-1/4 grid gap-6 justify-center">
 			{#each posts as post}
 				<div class="bg-base-200 p-4 rounded-lg">
@@ -296,7 +296,7 @@
 				</div>
 			{/each}
 		</div>
-	{:else}
+	{:else if posts !== null && posts.length === 0}
 		<div class="h-screen w-screen grid place-items-center -mt-8">
 			<span>
 				<h1 class="text-4xl font-bold">You don't have any news yet!</h1>
@@ -317,6 +317,14 @@
 					</svg>
 				</a>
 			</span>
+		</div>
+	{:else}
+		<div class="grid place-items-center w-screen h-screen -mt-8">
+			<div
+				class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-primary w-8 h-8"
+				role="status"
+				aria-label="loading"
+			/>
 		</div>
 	{/if}
 {/if}
