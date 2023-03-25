@@ -17,7 +17,7 @@
 	<span>
 		<h1 class="text-8xl lg:text-10xl font-bold">404</h1>
 		<p
-			class="lg:text-4xl sm:text-3xl text-2xl lg:-translate-y-16 font-semibold"
+			class="lg:text-4xl sm:text-3xl text-2xl -translate-y-2 lg:-translate-y-4 font-semibold"
 		>
 			You're not supposed to be here.
 		</p>

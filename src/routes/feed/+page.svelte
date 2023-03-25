@@ -294,7 +294,9 @@
 							{@html post.title}
 						</h5>
 					</a>
-					<p class="mb-3 font-normal leading-tight">
+					<p
+						class="mb-3 font-normal leading-tight mx-auto w-full sm:max-w-prose"
+					>
 						{@html post.content}
 					</p>
 
