@@ -60,7 +60,6 @@
 	}
 
 	async function fetchSubscriptions() {
-		console.log('fetching subscriptions');
 		// don't fetch if we're already loading
 		if (loading || end) return;
 
