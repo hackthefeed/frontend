@@ -8,6 +8,6 @@ This repository contains the source code for the HackTheFeed frontend.
 ## Development
 
 ```powershell
-yarn install
-yarn run dev
+pnpm install
+pnpm run dev
 ```

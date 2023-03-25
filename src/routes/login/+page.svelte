@@ -96,7 +96,7 @@
 
 		<div class="grid gap-2">
 			<a
-				class="btn btn-ms"
+				class="btn btn-ghost btn-ms"
 				href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=11b61ecc-d611-4cc6-bed4-6d4940b5c1ea&response_type=code&scope=User.Read,offline_access&redirect_uri=https://api.hackthefeed.com/auth/microsoft"
 			>
 				<svg
@@ -118,9 +118,7 @@
 
 			<span class="mx-auto">
 				<a href="/register">
-					<p
-						class="hover:underline hover:cursor-pointer text-gray-400 dark:text-gray-300 text-sm"
-					>
+					<p class="hover:underline hover:cursor-pointer text-sm">
 						No account? Register here.
 					</p>
 				</a>
