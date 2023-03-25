@@ -311,14 +311,14 @@
 						</label>
 					</div>
 
-					<ul class="text-xs text-white/[.8] float-right">
+					<ul class="text-xs float-right">
 						<li
-							class="inline-block relative pr-6 last:pr-0 last-of-type:before:hidden before:absolute before:top-1/2 before:right-2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-gray-300 before:rounded-full dark:text-gray-300 dark:before:bg-gray-500"
+							class="inline-block relative pr-6 last:pr-0 last-of-type:before:hidden before:absolute before:top-1/2 before:right-2 before:-translate-y-1/2 before:w-1 before:h-1 before:rounded-full"
 						>
 							{post.producer.name}
 						</li>
 						<li
-							class="inline-block relative pr-6 last:pr-0 last-of-type:before:hidden before:absolute before:top-1/2 before:right-2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-gray-300 before:rounded-full dark:text-gray-300 dark:before:bg-gray-500"
+							class="inline-block relative pr-6 last:pr-0 last-of-type:before:hidden before:absolute before:top-1/2 before:right-2 before:-translate-y-1/2 before:w-1 before:h-1 before:rounded-full"
 						>
 							<Time timestamp={post.createdAt} relative />
 						</li>

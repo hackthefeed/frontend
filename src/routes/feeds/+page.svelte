@@ -104,7 +104,7 @@
 		<div class="grid text-center h-screen place-items-center -mt-8">
 			<span>
 				<h1 class="text-4xl font-bold">No producers found</h1>
-				<p class="text-gray-500">Please try again later.</p>
+				<p>Please try again later.</p>
 			</span>
 		</div>
 	{:else}
