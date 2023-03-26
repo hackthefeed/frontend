@@ -1,4 +1,13 @@
 <script context="module" lang="ts">
+	export type Comment = {
+		id: number;
+		content: string;
+		author: {
+			username: string;
+			displayName: string;
+		};
+	};
+
 	export type Post = {
 		id: string;
 		title: string;
@@ -15,6 +24,10 @@
 			id: number;
 			decrypted?: string;
 		}[];
+		_count: {
+			comments: number;
+		};
+		comments?: Comment[];
 	};
 </script>
 
@@ -68,7 +81,7 @@
 		loading = true;
 
 		const response = await fetch(
-			`https://api.hackthefeed.com/me/posts?key=${key}&page=${usePage}`
+			`https://api.hackthefeed.com/me/feed?key=${key}&page=${usePage}`
 		);
 
 		const data = await response.json();
@@ -88,14 +101,57 @@
 	}
 
 	let noteData: Post | null = null;
+	let postData: Post | null = null;
+
+	async function viewComments(post: Post) {
+		postData = post;
+		postData.comments = await fetch(
+			`https://api.hackthefeed.com/post/comments?key=${key}&postId=${encodeURIComponent(
+				post.id
+			)}`
+		)
+			.then(res => res.json())
+			.then(data => data.data);
+
+		postData = postData;
+	}
 
 	function viewNotes(post: Post) {
 		noteData = post;
 	}
 
+	let commentContent = '';
 	let noteContent = '';
 	let encryptionKey = '';
 	let decryptionKey = '';
+
+	async function submitCommentCreation() {
+		const response = await fetch('https://api.hackthefeed.com/post/comment', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				key,
+				postId: postData?.id,
+				content: commentContent,
+			}),
+		});
+
+		const data = await response.json();
+
+		if (postData !== null) {
+			if (postData.comments === undefined) {
+				postData.comments = [data.data];
+			} else {
+				postData.comments.unshift(data.data);
+			}
+
+			postData._count.comments++;
+		}
+
+		postData = postData;
+	}
 
 	async function submitNoteCreation() {
 		const encryptedContent = encrypt(noteContent, encryptionKey);
@@ -182,6 +238,70 @@
 </svelte:head>
 
 <Header loggedIn={key !== null} />
+
+<input type="checkbox" id="view-comments-modal" class="modal-toggle" />
+<div class="modal">
+	<div class="modal-box relative">
+		<label
+			for="view-comments-modal"
+			class="btn btn-sm btn-circle absolute right-2 top-2">✕</label
+		>
+
+		<h3 class="font-bold text-lg">
+			Comments ({postData?._count?.comments ?? 0})
+		</h3>
+
+		{#if postData?.comments !== undefined}
+			{#each postData.comments as comment}
+				<div class="p-4 rounded-lg w-96">
+					<h2 class="text-bold text-accent">
+						{comment.author.displayName || comment.author.username}
+					</h2>
+					<p class="whitespace-pre-line">
+						{comment.content}
+					</p>
+				</div>
+			{/each}
+		{/if}
+
+		<div class="modal-action">
+			<label for="new-comment-modal" class="btn btn-success">New comment</label>
+		</div>
+	</div>
+</div>
+
+<input type="checkbox" id="new-comment-modal" class="modal-toggle" />
+<div class="modal">
+	<div class="modal-box relative">
+		<label
+			for="new-comment-modal"
+			class="btn btn-sm btn-circle absolute right-2 top-2">✕</label
+		>
+
+		<h3 class="font-bold text-lg pb-4">Create new comment</h3>
+
+		<span>
+			<textarea
+				id="comment-content"
+				placeholder="Write here..."
+				rows="4"
+				class="textarea textarea-bordered w-full"
+				bind:value={commentContent}
+			/>
+		</span>
+
+		{#if commentContent}
+			<div class="modal-action">
+				<label
+					for="new-comment-modal"
+					on:click={submitCommentCreation}
+					on:keydown
+					class="btn btn-success">Create comment</label
+				>
+			</div>
+		{/if}
+	</div>
+</div>
 
 <input type="checkbox" id="edit-note-modal" class="modal-toggle" />
 <div class="modal">
@@ -299,7 +419,7 @@
 						{@html post.content}
 					</p>
 
-					<div class="float-left">
+					<div class="float-left flex flex-row gap-2">
 						<label
 							for="edit-note-modal"
 							class="btn btn-sm btn-primary"
@@ -307,6 +427,19 @@
 							on:keydown
 						>
 							Edit note
+						</label>
+						<label
+							class="btn btn-sm gap-2"
+							for="view-comments-modal"
+							on:click={() => viewComments(post)}
+							on:keydown
+						>
+							Comments
+							{#if post._count.comments}
+								<span class="badge badge-sm badge-secondary">
+									{post._count.comments > 99 ? '99+' : post._count.comments}
+								</span>
+							{/if}
 						</label>
 					</div>
 
