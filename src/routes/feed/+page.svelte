@@ -151,6 +151,7 @@
 		}
 
 		postData = postData;
+		posts = posts;
 	}
 
 	async function submitNoteCreation() {
