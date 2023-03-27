@@ -55,7 +55,7 @@
 			goto('/login');
 		} else {
 			socket = io('wss://api.hackthefeed.com', {
-				path: '/socket/socket.io',
+				path: '/ws',
 				query: {
 					key,
 				},
@@ -81,7 +81,12 @@
 		loading = true;
 
 		const response = await fetch(
-			`https://api.hackthefeed.com/me/feed?key=${key}&page=${usePage}`
+			`https://api.hackthefeed.com/me/feed?page=${usePage}`,
+			{
+				headers: {
+					key: key!,
+				},
+			}
 		);
 
 		const data = await response.json();
@@ -106,9 +111,12 @@
 	async function viewComments(post: Post) {
 		postData = post;
 		postData.comments = await fetch(
-			`https://api.hackthefeed.com/post/comments?key=${key}&postId=${encodeURIComponent(
-				post.id
-			)}`
+			`https://api.hackthefeed.com/posts/${post.id}/comments`,
+			{
+				headers: {
+					key: key!,
+				},
+			}
 		)
 			.then(res => res.json())
 			.then(data => data.data);
@@ -126,17 +134,19 @@
 	let decryptionKey = '';
 
 	async function submitCommentCreation() {
-		const response = await fetch('https://api.hackthefeed.com/post/comment', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				key,
-				postId: postData?.id,
-				content: commentContent,
-			}),
-		});
+		const response = await fetch(
+			`https://api.hackthefeed.com/posts/${postData?.id}/comments`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					key: key!,
+				},
+				body: JSON.stringify({
+					content: commentContent,
+				}),
+			}
+		);
 
 		const data = await response.json();
 
@@ -157,17 +167,19 @@
 	async function submitNoteCreation() {
 		const encryptedContent = encrypt(noteContent, encryptionKey);
 
-		const response = await fetch('https://api.hackthefeed.com/post/note', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				key,
-				postId: noteData?.id,
-				content: encryptedContent,
-			}),
-		});
+		const response = await fetch(
+			`https://api.hackthefeed.com/posts/${noteData?.id}/note`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					key: key!,
+				},
+				body: JSON.stringify({
+					content: encryptedContent,
+				}),
+			}
+		);
 
 		const data = await response.json();
 

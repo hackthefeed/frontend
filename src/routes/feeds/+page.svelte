@@ -26,7 +26,12 @@
 
 	async function getProducers() {
 		const response = await fetch(
-			`https://api.hackthefeed.com/me/subscriptions?key=${key}`
+			`https://api.hackthefeed.com/me/subscriptions`,
+			{
+				headers: {
+					key: key!,
+				},
+			}
 		);
 
 		const data = await response.json();
@@ -35,15 +40,12 @@
 	}
 
 	function subscribe(producer: Producer) {
-		fetch('https://api.hackthefeed.com/feed/subscribe', {
+		fetch(`https://api.hackthefeed.com/sources/${producer.id}/subscribe`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				key: key!,
 			},
-			body: JSON.stringify({
-				producerId: producer.id,
-				key,
-			}),
 		});
 
 		producer.subscribed = true;
@@ -51,15 +53,12 @@
 	}
 
 	function unsubscribe(producer: Producer) {
-		fetch('https://api.hackthefeed.com/feed/unsubscribe', {
+		fetch(`https://api.hackthefeed.com/sources/${producer.id}/unsubscribe`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				key: key!,
 			},
-			body: JSON.stringify({
-				producerId: producer.id,
-				key,
-			}),
 		});
 
 		producer.subscribed = false;

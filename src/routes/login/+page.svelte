@@ -19,7 +19,7 @@
 	let error = false;
 
 	async function logIn() {
-		const response = await fetch('https://api.hackthefeed.com/login', {
+		const response = await fetch('https://api.hackthefeed.com/auth/login', {
 			method: 'POST',
 			body: JSON.stringify({
 				username: email,
