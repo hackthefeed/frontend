@@ -16,12 +16,13 @@
 		updatedAt: string;
 		url: string;
 		thumbnail?: string;
-		producer: {
+		source: {
+			id: string;
 			name: string;
 		};
 		notes: {
 			content: string;
-			id: number;
+			id: string;
 			decrypted?: string;
 		}[];
 		_count: {
@@ -168,7 +169,7 @@
 		const encryptedContent = encrypt(noteContent, encryptionKey);
 
 		const response = await fetch(
-			`https://api.hackthefeed.com/posts/${noteData?.id}/note`,
+			`https://api.hackthefeed.com/posts/${noteData?.id}/notes`,
 			{
 				method: 'POST',
 				headers: {
@@ -460,7 +461,7 @@
 						<li
 							class="inline-block relative pr-6 last:pr-0 last-of-type:before:hidden before:absolute before:top-1/2 before:right-2 before:-translate-y-1/2 before:w-1 before:h-1 before:rounded-full"
 						>
-							{post.producer.name}
+							{post.source.name}
 						</li>
 						<li
 							class="inline-block relative pr-6 last:pr-0 last-of-type:before:hidden before:absolute before:top-1/2 before:right-2 before:-translate-y-1/2 before:w-1 before:h-1 before:rounded-full"

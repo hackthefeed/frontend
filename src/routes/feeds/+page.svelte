@@ -41,9 +41,7 @@
 
 	function subscribe(producer: Producer) {
 		fetch(`https://api.hackthefeed.com/sources/${producer.id}/subscribe`, {
-			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
 				key: key!,
 			},
 		});
@@ -54,9 +52,7 @@
 
 	function unsubscribe(producer: Producer) {
 		fetch(`https://api.hackthefeed.com/sources/${producer.id}/unsubscribe`, {
-			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
 				key: key!,
 			},
 		});
