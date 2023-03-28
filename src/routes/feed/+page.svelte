@@ -271,107 +271,99 @@
 	</div>
 </div>
 
-{#if key}
-	{#if posts !== null && posts.length > 0}
-		<div class="mx-auto w-full sm:max-w-prose my-16 grid gap-6 justify-center">
-			{#each posts as post}
-				<div class="card w-full bg-base-300 shadow-xl hover:shadow-2xl">
-					{#if post.thumbnail}
-						<figure>
-							<a href="/feed/{post.id}">
-								<img src={post.thumbnail} alt="" />
+{#if posts !== null && posts.length > 0}
+	<div class="mx-auto w-full sm:max-w-prose my-16 grid gap-6 justify-center">
+		{#each posts as post}
+			<div class="card w-full bg-base-300 shadow-xl hover:shadow-2xl">
+				{#if post.thumbnail}
+					<figure>
+						<a href="/feed/{post.id}">
+							<img src={post.thumbnail} alt="" />
+						</a>
+					</figure>
+				{/if}
+
+				<div class="card-body">
+					<a href="/feed/{post.id}">
+						<h2 class="card-title hover:underline text-accent">
+							{@html post.title}
+						</h2>
+					</a>
+
+					<a href="/feed/{post.id}">
+						<p class="line-clamp-3">{@html post.content}</p>
+					</a>
+
+					<span class="mt-6">
+						<div class="float-left flex flex-row gap-2">
+							<label
+								for="edit-note-modal"
+								class="btn btn-sm btn-primary"
+								on:click={() => viewNotes(post)}
+								on:keydown
+							>
+								Edit note
+							</label>
+							<a href="/feed/{post.id}#comments">
+								<button class="btn btn-ghost btn-sm">
+									Comments
+									{#if post._count.comments}
+										<span class="badge badge-sm badge-secondary">
+											{post._count.comments > 99 ? '99+' : post._count.comments}
+										</span>
+									{/if}
+								</button>
 							</a>
-						</figure>
-					{/if}
+						</div>
 
-					<div class="card-body">
-						<a href="/feed/{post.id}">
-							<h2 class="card-title hover:underline text-accent">
-								{@html post.title}
-							</h2>
-						</a>
-
-						<a href="/feed/{post.id}">
-							<p class="line-clamp-3">{@html post.content}</p>
-						</a>
-
-						<span class="mt-6">
-							<div class="float-left flex flex-row gap-2">
-								<label
-									for="edit-note-modal"
-									class="btn btn-sm btn-primary"
-									on:click={() => viewNotes(post)}
-									on:keydown
-								>
-									Edit note
-								</label>
-								<a href="/feed/{post.id}#comments">
-									<button class="btn btn-ghost btn-sm">
-										Comments
-										{#if post._count.comments}
-											<span class="badge badge-sm badge-secondary">
-												{post._count.comments > 99
-													? '99+'
-													: post._count.comments}
-											</span>
-										{/if}
-									</button>
-								</a>
-							</div>
-
-							<ul class="text-xs float-right text-right flex flex-col">
-								<Time timestamp={post.createdAt} relative />
-								<p class="truncate w-48 font-bold">{post.source.name}</p>
-							</ul>
-						</span>
-					</div>
+						<ul class="text-xs float-right text-right flex flex-col">
+							<Time timestamp={post.createdAt} relative />
+							<p class="truncate w-48 font-bold">{post.source.name}</p>
+						</ul>
+					</span>
 				</div>
-			{/each}
-		</div>
-		{#if loading}
-			<div class="grid place-items-center w-screen h-32 -mt-8">
-				<div
-					class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-primary w-8 h-8"
-					role="status"
-					aria-label="loading"
-				/>
 			</div>
-		{:else}
-			<InfiniteScroll
-				threshold={1_000}
-				on:loadMore={fetchSubscriptions}
-				window
-			/>
-		{/if}
-	{:else if posts !== null && posts.length === 0}
-		<div class="h-screen w-screen grid place-items-center -mt-8">
-			<span>
-				<h1 class="text-4xl font-bold">You don't have any news yet!</h1>
-				<a href="/feeds" class="btn btn-primary w-full">
-					View available feeds
-					<svg
-						aria-hidden="true"
-						class="ml-2 -mr-1 w-5 h-5"
-						fill="currentColor"
-						viewBox="0 0 20 20"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							fill-rule="evenodd"
-							d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-							clip-rule="evenodd"
-						/>
-					</svg>
-				</a>
-			</span>
-		</div>
-	{:else}
-		<div class="grid place-items-center w-screen h-screen -mt-8">
+		{/each}
+	</div>
+	{#if loading}
+		<div class="grid place-items-center w-screen h-32 -mt-8">
 			<div
 				class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-primary w-8 h-8"
 				role="status"
 				aria-label="loading"
 			/>
 		</div>
+	{:else}
+		<InfiniteScroll threshold={1_000} on:loadMore={fetchSubscriptions} window />
 	{/if}
+{:else if posts !== null && posts.length === 0}
+	<div class="h-screen w-screen grid place-items-center -mt-8">
+		<span>
+			<h1 class="text-4xl font-bold">You don't have any news yet!</h1>
+			<a href="/feeds" class="btn btn-primary w-full">
+				View available feeds
+				<svg
+					aria-hidden="true"
+					class="ml-2 -mr-1 w-5 h-5"
+					fill="currentColor"
+					viewBox="0 0 20 20"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+						clip-rule="evenodd"
+					/>
+				</svg>
+			</a>
+		</span>
+	</div>
+{:else}
+	<div class="grid place-items-center w-screen h-screen -mt-8">
+		<div
+			class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-primary w-8 h-8"
+			role="status"
+			aria-label="loading"
+		/>
+	</div>
 {/if}
