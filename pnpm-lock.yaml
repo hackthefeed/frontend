@@ -14,6 +14,7 @@ specifiers:
   postcss: ^8.4.21
   socket.io-client: ^4.6.1
   svelte: ^3.54.0
+  svelte-bricks: ^0.1.7
   svelte-check: ^2.9.2
   svelte-infinite-scroll: ^2.0.1
   svelte-time: ^0.7.1
@@ -26,6 +27,7 @@ specifiers:
 dependencies:
   dayjs: 1.11.7
   socket.io-client: 4.6.1
+  svelte-bricks: 0.1.7
   svelte-infinite-scroll: 2.0.1
   svelte-time: 0.7.1
   theme-change: 2.5.0
@@ -2082,6 +2084,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
     dev: true
+
+  /svelte-bricks/0.1.7:
+    resolution: {integrity: sha512-2wJseuhlVYVRoCKJGQuwCySTMsvBVS4dchah6Ecz9RNng0zufx6NxToXc7iGf0QOHjo9wwAsOczRI+Ou2q4gEg==}
+    dev: false
 
   /svelte-check/2.10.3_sd5d5bwhwct4qrvp7ra4wv5wou:
     resolution: {integrity: sha512-Nt1aWHTOKFReBpmJ1vPug0aGysqPwJh2seM1OvICfM2oeyaA62mOiy5EvkXhltGfhCcIQcq2LoE0l1CwcWPjlw==}

@@ -4,8 +4,10 @@
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import { io } from 'socket.io-client';
+
 	import Time from 'svelte-time';
 	import InfiniteScroll from 'svelte-infinite-scroll';
+	import Masonry from 'svelte-bricks';
 
 	import type { Socket } from 'socket.io-client';
 
@@ -272,26 +274,26 @@
 </div>
 
 {#if posts !== null && posts.length > 0}
-	<div class="mx-auto w-full sm:max-w-prose my-16 grid gap-6 justify-center">
-		{#each posts as post}
-			<div class="card w-full bg-base-300 shadow-xl hover:shadow-2xl">
-				{#if post.thumbnail}
+	<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+		<Masonry items={posts} gap={30} minColWidth={500} let:item>
+			<div class="card card-bordered w-full border-neutral">
+				{#if item.thumbnail}
 					<figure>
-						<a href="/feed/{post.id}">
-							<img src={post.thumbnail} alt="" />
+						<a href="/feed/{item.id}">
+							<img src={item.thumbnail} alt="" />
 						</a>
 					</figure>
 				{/if}
 
 				<div class="card-body">
-					<a href="/feed/{post.id}">
+					<a href="/feed/{item.id}">
 						<h2 class="card-title hover:underline text-accent">
-							{@html post.title}
+							{@html item.title}
 						</h2>
 					</a>
 
-					<a href="/feed/{post.id}">
-						<p class="line-clamp-3">{@html post.content}</p>
+					<a href="/feed/{item.id}">
+						<p class="line-clamp-3">{@html item.content}</p>
 					</a>
 
 					<span class="mt-6">
@@ -299,31 +301,32 @@
 							<label
 								for="edit-note-modal"
 								class="btn btn-sm btn-primary"
-								on:click={() => viewNotes(post)}
+								on:click={() => viewNotes(item)}
 								on:keydown
 							>
 								Edit note
 							</label>
-							<a href="/feed/{post.id}#comments">
-								<button class="btn btn-ghost btn-sm">
-									Comments
-									{#if post._count.comments}
+
+							{#if item._count.comments}
+								<a href="/feed/{item.id}#comments">
+									<button class="btn btn-ghost btn-sm">
+										Comments
 										<span class="badge badge-sm badge-secondary ml-2">
-											{post._count.comments > 99 ? '99+' : post._count.comments}
+											{item._count.comments > 99 ? '99+' : item._count.comments}
 										</span>
-									{/if}
-								</button>
-							</a>
+									</button>
+								</a>
+							{/if}
 						</div>
 
 						<ul class="text-xs float-right text-right flex flex-col">
-							<Time timestamp={post.createdAt} relative />
-							<p class="truncate w-48 font-bold">{post.source.name}</p>
+							<Time timestamp={item.createdAt} relative />
+							<p class="truncate w-48 font-bold">{item.source.name}</p>
 						</ul>
 					</span>
 				</div>
 			</div>
-		{/each}
+		</Masonry>
 	</div>
 	{#if loading}
 		<div class="grid place-items-center w-screen h-32 -mt-8">

@@ -73,7 +73,7 @@
 		<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
 			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{#each producers as producer}
-					<div class="card bg-base-200 shadow-xl">
+					<div class="card card-bordered border-neutral">
 						<div class="card-body flex justify-between">
 							<h2 class="card-title">{producer.name}</h2>
 							<div class="card-actions justify-end">
