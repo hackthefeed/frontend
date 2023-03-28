@@ -11,3 +11,10 @@ This repository contains the source code for the HackTheFeed frontend.
 pnpm install
 pnpm run dev
 ```
+
+## About
+
+- SvelteKit for routing and rendering
+- TypeScript for type safety
+- TailwindCSS for styling
+- DaisyUI for TailwindCSS components
