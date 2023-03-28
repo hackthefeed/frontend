@@ -110,6 +110,7 @@
 		});
 
 		noteData = noteData;
+		posts = posts;
 	}
 
 	function encrypt(content: string, key: string) {
