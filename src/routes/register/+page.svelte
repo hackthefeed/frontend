@@ -2,9 +2,7 @@
 	type RegisterResponse =
 		| {
 				success: true;
-				user: {
-					key: string;
-				};
+				data: string;
 		  }
 		| {
 				success: false;
@@ -39,7 +37,7 @@
 		const data: RegisterResponse = await response.json();
 
 		if (data.success) {
-			localStorage.setItem('key', data.user.key);
+			localStorage.setItem('key', `Bearer ${data.data}`);
 
 			goto('/feed');
 		} else {

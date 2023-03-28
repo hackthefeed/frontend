@@ -6,7 +6,7 @@
 		  }
 		| {
 				success: true;
-				key: string;
+				data: string;
 		  };
 </script>
 
@@ -35,7 +35,7 @@
 		if (!data.success) return (error = true);
 
 		error = false;
-		localStorage.setItem('key', data.key);
+		localStorage.setItem('key', `Bearer ${data.data}`);
 
 		goto('/feed');
 	}

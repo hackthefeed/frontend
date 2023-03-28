@@ -17,7 +17,7 @@
 				}),
 				headers: {
 					'Content-Type': 'application/json',
-					key: localStorage.getItem('key')!,
+					Authorization: localStorage.getItem('key')!,
 				},
 			}
 		);

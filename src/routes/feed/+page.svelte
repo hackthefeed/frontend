@@ -24,8 +24,8 @@
 		} else {
 			socket = io('wss://api.hackthefeed.com', {
 				path: '/ws',
-				query: {
-					key,
+				extraHeaders: {
+					Authorization: key,
 				},
 			});
 
@@ -52,7 +52,7 @@
 			`https://api.hackthefeed.com/me/feed?page=${usePage}`,
 			{
 				headers: {
-					key: key!,
+					Authorization: key!,
 				},
 			}
 		);
@@ -92,7 +92,7 @@
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					key: key!,
+					Authorization: key!,
 				},
 				body: JSON.stringify({
 					content: encryptedContent,
@@ -275,50 +275,53 @@
 	{#if posts !== null && posts.length > 0}
 		<div class="mx-auto w-full sm:max-w-prose my-16 grid gap-6 justify-center">
 			{#each posts as post}
-				<div class="bg-base-200 p-4 rounded-lg">
-					<a href="/feed/{post.id}">
-						<h5 class="mb-2 text-2xl font-bold tracking-tight hover:underline">
-							{@html post.title}
-						</h5>
-					</a>
-					<p
-						class="mb-3 font-normal leading-tight mx-auto w-full sm:max-w-prose"
-					>
-						{@html post.content}
-					</p>
+				<a href="/feed/{post.id}">
+					<div class="card w-full bg-base-300 shadow-xl hover:shadow-2xl">
+						{#if post.thumbnail}
+							<figure>
+								<img src={post.thumbnail} alt="" />
+							</figure>
+						{/if}
 
-					<div class="float-left flex flex-row gap-2">
-						<label
-							for="edit-note-modal"
-							class="btn btn-sm btn-primary"
-							on:click={() => viewNotes(post)}
-							on:keydown
-						>
-							Edit note
-						</label>
-						<a href="/feed/{post.id}#comments">
-							Comments
-							{#if post._count.comments}
-								<span class="badge badge-sm badge-secondary">
-									{post._count.comments > 99 ? '99+' : post._count.comments}
-								</span>
-							{/if}
-						</a>
+						<div class="card-body">
+							<h2 class="card-title hover:underline text-accent">
+								{@html post.title}
+							</h2>
+
+							<p class="line-clamp-3">{@html post.content}</p>
+
+							<span class="mt-6">
+								<div class="float-left flex flex-row gap-2">
+									<label
+										for="edit-note-modal"
+										class="btn btn-sm btn-primary"
+										on:click={() => viewNotes(post)}
+										on:keydown
+									>
+										Edit note
+									</label>
+									<a href="/feed/{post.id}#comments">
+										<button class="btn btn-ghost btn-sm">
+											Comments
+											{#if post._count.comments}
+												<span class="badge badge-sm badge-secondary">
+													{post._count.comments > 99
+														? '99+'
+														: post._count.comments}
+												</span>
+											{/if}
+										</button>
+									</a>
+								</div>
+
+								<ul class="text-xs float-right text-right flex flex-col">
+									<Time timestamp={post.createdAt} relative />
+									<p class="truncate w-48 font-bold">{post.source.name}</p>
+								</ul>
+							</span>
+						</div>
 					</div>
-
-					<ul class="text-xs float-right">
-						<li
-							class="inline-block relative pr-6 last:pr-0 last-of-type:before:hidden before:absolute before:top-1/2 before:right-2 before:-translate-y-1/2 before:w-1 before:h-1 before:rounded-full"
-						>
-							{post.source.name}
-						</li>
-						<li
-							class="inline-block relative pr-6 last:pr-0 last-of-type:before:hidden before:absolute before:top-1/2 before:right-2 before:-translate-y-1/2 before:w-1 before:h-1 before:rounded-full"
-						>
-							<Time timestamp={post.createdAt} relative />
-						</li>
-					</ul>
-				</div>
+				</a>
 			{/each}
 		</div>
 		{#if loading}

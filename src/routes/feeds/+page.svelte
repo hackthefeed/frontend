@@ -29,7 +29,7 @@
 			`https://api.hackthefeed.com/me/subscriptions`,
 			{
 				headers: {
-					key: key!,
+					Authorization: key!,
 				},
 			}
 		);
@@ -42,7 +42,7 @@
 	function subscribe(producer: Producer) {
 		fetch(`https://api.hackthefeed.com/sources/${producer.id}/subscribe`, {
 			headers: {
-				key: key!,
+				Authorization: key!,
 			},
 		});
 
@@ -53,7 +53,7 @@
 	function unsubscribe(producer: Producer) {
 		fetch(`https://api.hackthefeed.com/sources/${producer.id}/unsubscribe`, {
 			headers: {
-				key: key!,
+				Authorization: key!,
 			},
 		});
 
