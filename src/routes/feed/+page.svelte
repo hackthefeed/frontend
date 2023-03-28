@@ -275,8 +275,8 @@
 	{#if posts !== null && posts.length > 0}
 		<div class="mx-auto w-full sm:max-w-prose my-16 grid gap-6 justify-center">
 			{#each posts as post}
-				<a href="/feed/{post.id}">
-					<div class="card w-full bg-base-300 shadow-xl hover:shadow-2xl">
+				<div class="card w-full bg-base-300 shadow-xl hover:shadow-2xl">
+					<a href="/feed/{post.id}">
 						{#if post.thumbnail}
 							<figure>
 								<img src={post.thumbnail} alt="" />
@@ -284,11 +284,13 @@
 						{/if}
 
 						<div class="card-body">
-							<h2 class="card-title hover:underline text-accent">
-								{@html post.title}
-							</h2>
+							<a href="/feed/{post.id}">
+								<h2 class="card-title hover:underline text-accent">
+									{@html post.title}
+								</h2>
 
-							<p class="line-clamp-3">{@html post.content}</p>
+								<p class="line-clamp-3">{@html post.content}</p>
+							</a>
 
 							<span class="mt-6">
 								<div class="float-left flex flex-row gap-2">
@@ -320,8 +322,8 @@
 								</ul>
 							</span>
 						</div>
-					</div>
-				</a>
+					</a>
+				</div>
 			{/each}
 		</div>
 		{#if loading}
