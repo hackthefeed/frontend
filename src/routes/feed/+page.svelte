@@ -287,7 +287,7 @@
 
 				<div class="card-body">
 					<a href="/feed/{item.id}">
-						<h2 class="card-title hover:underline text-accent">
+						<h2 class="card-title hover:underline text-accent line-clamp-2">
 							{@html item.title}
 						</h2>
 					</a>
@@ -298,14 +298,25 @@
 
 					<span class="mt-6">
 						<div class="float-left flex flex-row gap-2">
-							<label
-								for="edit-note-modal"
-								class="btn btn-sm btn-primary"
-								on:click={() => viewNotes(item)}
-								on:keydown
-							>
-								Edit note
-							</label>
+							{#if item.notes.length}
+								<label
+									for="edit-note-modal"
+									class="btn btn-sm btn-primary"
+									on:click={() => viewNotes(item)}
+									on:keydown
+								>
+									View note
+								</label>
+							{:else}
+								<label
+									for="new-note-modal"
+									class="btn btn-sm btn-success"
+									on:click={() => viewNotes(item)}
+									on:keydown
+								>
+									Add note
+								</label>
+							{/if}
 
 							{#if item._count.comments}
 								<a href="/feed/{item.id}#comments">
