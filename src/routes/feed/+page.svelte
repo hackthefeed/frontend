@@ -308,7 +308,7 @@
 								<button class="btn btn-ghost btn-sm">
 									Comments
 									{#if post._count.comments}
-										<span class="badge badge-sm badge-secondary">
+										<span class="badge badge-sm badge-secondary ml-2">
 											{post._count.comments > 99 ? '99+' : post._count.comments}
 										</span>
 									{/if}
