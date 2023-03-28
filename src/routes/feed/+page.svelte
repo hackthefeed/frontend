@@ -276,13 +276,13 @@
 		<div class="mx-auto w-full sm:max-w-prose my-16 grid gap-6 justify-center">
 			{#each posts as post}
 				<div class="card w-full bg-base-300 shadow-xl hover:shadow-2xl">
-					<a href="/feed/{post.id}">
-						{#if post.thumbnail}
-							<figure>
+					{#if post.thumbnail}
+						<figure>
+							<a href="/feed/{post.id}">
 								<img src={post.thumbnail} alt="" />
-							</figure>
-						{/if}
-					</a>
+							</a>
+						</figure>
+					{/if}
 
 					<div class="card-body">
 						<a href="/feed/{post.id}">
