@@ -282,47 +282,49 @@
 								<img src={post.thumbnail} alt="" />
 							</figure>
 						{/if}
-
-						<div class="card-body">
-							<a href="/feed/{post.id}">
-								<h2 class="card-title hover:underline text-accent">
-									{@html post.title}
-								</h2>
-
-								<p class="line-clamp-3">{@html post.content}</p>
-							</a>
-
-							<span class="mt-6">
-								<div class="float-left flex flex-row gap-2">
-									<label
-										for="edit-note-modal"
-										class="btn btn-sm btn-primary"
-										on:click={() => viewNotes(post)}
-										on:keydown
-									>
-										Edit note
-									</label>
-									<a href="/feed/{post.id}#comments">
-										<button class="btn btn-ghost btn-sm">
-											Comments
-											{#if post._count.comments}
-												<span class="badge badge-sm badge-secondary">
-													{post._count.comments > 99
-														? '99+'
-														: post._count.comments}
-												</span>
-											{/if}
-										</button>
-									</a>
-								</div>
-
-								<ul class="text-xs float-right text-right flex flex-col">
-									<Time timestamp={post.createdAt} relative />
-									<p class="truncate w-48 font-bold">{post.source.name}</p>
-								</ul>
-							</span>
-						</div>
 					</a>
+
+					<div class="card-body">
+						<a href="/feed/{post.id}">
+							<h2 class="card-title hover:underline text-accent">
+								{@html post.title}
+							</h2>
+						</a>
+
+						<a href="/feed/{post.id}">
+							<p class="line-clamp-3">{@html post.content}</p>
+						</a>
+
+						<span class="mt-6">
+							<div class="float-left flex flex-row gap-2">
+								<label
+									for="edit-note-modal"
+									class="btn btn-sm btn-primary"
+									on:click={() => viewNotes(post)}
+									on:keydown
+								>
+									Edit note
+								</label>
+								<a href="/feed/{post.id}#comments">
+									<button class="btn btn-ghost btn-sm">
+										Comments
+										{#if post._count.comments}
+											<span class="badge badge-sm badge-secondary">
+												{post._count.comments > 99
+													? '99+'
+													: post._count.comments}
+											</span>
+										{/if}
+									</button>
+								</a>
+							</div>
+
+							<ul class="text-xs float-right text-right flex flex-col">
+								<Time timestamp={post.createdAt} relative />
+								<p class="truncate w-48 font-bold">{post.source.name}</p>
+							</ul>
+						</span>
+					</div>
 				</div>
 			{/each}
 		</div>
