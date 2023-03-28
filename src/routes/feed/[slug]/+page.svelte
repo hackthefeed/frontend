@@ -39,7 +39,7 @@
 	<div class="my-12">
 		{#if data.props.post.thumbnail}
 			<img
-				class="w-full object-cover rounded-xl"
+				class="w-full h-96 object-cover rounded-xl mb-4"
 				src={data.props.post.thumbnail}
 				alt=""
 			/>
@@ -50,6 +50,7 @@
 				{@html data.props.post.title}
 			</h1>
 		</a>
+
 		<p class="text-lg">{@html data.props.post.content}</p>
 	</div>
 
