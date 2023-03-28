@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '$/components/Header.svelte';
+	import Navbar from '$/components/Navbar.svelte';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 
@@ -20,7 +20,7 @@
 	<title>FAQ</title>
 </svelte:head>
 
-<Header loggedIn={key !== null} />
+<Navbar loggedIn={key !== null} />
 
 <div class="w-2/3 max-w-4xl m-auto mt-24 h-screen">
 	<h1 class="text-9xl text-center font-bold mb-16">FAQ</h1>

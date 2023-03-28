@@ -7,7 +7,7 @@ const config: UserConfig = {
 		alias: {
 			$: '/src',
 		}
-	}
+	},
 };
 
 export default config;

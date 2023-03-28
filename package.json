@@ -28,6 +28,7 @@
 	"dependencies": {
 		"@sveltejs/adapter-cloudflare": "^2.2.0",
 		"daisyui": "^2.51.5",
+		"dayjs": "^1.11.7",
 		"socket.io-client": "^4.6.1",
 		"svelte-infinite-scroll": "^2.0.1",
 		"svelte-time": "^0.7.1",

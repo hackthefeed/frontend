@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '../components/Header.svelte';
+	import Navbar from '../components/Navbar.svelte';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 
@@ -19,7 +19,7 @@
 	<title>HackTheFeed</title>
 </svelte:head>
 
-<Header loggedIn={key !== null} />
+<Navbar loggedIn={key !== null} />
 
 <div class="w-2/3 max-w-4xl m-auto mt-28 h-screen">
 	<span class="text-center flex gap-10 flex-col">

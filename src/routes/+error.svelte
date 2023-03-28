@@ -1,5 +1,5 @@
 <script>
-	import Header from '../components/Header.svelte';
+	import Navbar from '../components/Navbar.svelte';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 
@@ -11,7 +11,7 @@
 	}
 </script>
 
-<Header loggedIn={key !== null} />
+<Navbar loggedIn={key !== null} />
 
 <div class="mx-auto max-w-[85rem] px-20 gap-10 mt-20 h-screen">
 	<span>

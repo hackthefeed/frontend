@@ -7,7 +7,7 @@
 </script>
 
 <script lang="ts">
-	import Header from '$/components/Header.svelte';
+	import Navbar from '$/components/Navbar.svelte';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 
@@ -66,7 +66,7 @@
 	<title>Feeds</title>
 </svelte:head>
 
-<Header loggedIn={key !== null} />
+<Navbar loggedIn={key !== null} />
 
 {#if key}
 	{#if producers !== null && producers.length > 0}

@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-	import Header from '$/components/Header.svelte';
+	import Navbar from '$/components/Navbar.svelte';
 	import { goto } from '$app/navigation';
 
 	let displayName = '';
@@ -52,7 +52,7 @@
 	<title>Register</title>
 </svelte:head>
 
-<Header />
+<Navbar />
 
 <div class="w-96 w-max-1/2 mt-16 mx-auto h-screen">
 	<form class="flex flex-col gap-6">
