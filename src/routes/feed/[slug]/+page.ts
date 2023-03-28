@@ -1,5 +1,5 @@
 import type { Post } from '$/app';
-import { error, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
 export type Output = {
@@ -9,15 +9,7 @@ export type Output = {
 };
 
 export const load: PageLoad = async ({ params }) => {
-	const key = localStorage.getItem('key');
-
-	if (key === null) return redirect(302, '/login');
-
-	const response = await fetch(`https://api.hackthefeed.com/posts/${params.slug}`, {
-		headers: {
-			Authorization: key,
-		}
-	});
+	const response = await fetch(`https://api.hackthefeed.com/posts/${params.slug}`);
 
 	if (response.ok) {
 		const post = await response.json();
