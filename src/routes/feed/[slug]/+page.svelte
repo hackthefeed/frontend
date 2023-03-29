@@ -51,7 +51,9 @@
 			</h1>
 		</a>
 
-		<p class="text-lg">{@html data.props.post.content}</p>
+		<p class="text-lg prose whitespace-pre-line">
+			{@html data.props.post.content}
+		</p>
 	</div>
 
 	<div class="w-full mb-16" id="comments">
