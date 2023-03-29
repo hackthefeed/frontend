@@ -11,6 +11,7 @@
 </script>
 
 <script lang="ts">
+	import { Turnstile } from 'svelte-turnstile';
 	import Navbar from '$/components/Navbar.svelte';
 	import { goto } from '$app/navigation';
 
@@ -18,6 +19,7 @@
 	let username = '';
 	let email = '';
 	let password = '';
+	let token: string | undefined;
 
 	let error: string | undefined;
 
@@ -25,9 +27,10 @@
 		const response = await fetch('https://api.hackthefeed.com/auth/register', {
 			method: 'POST',
 			body: JSON.stringify({
-				username: username,
-				email: email,
-				password: password,
+				username,
+				email,
+				password,
+				token,
 			}),
 			headers: {
 				'Content-Type': 'application/json',
@@ -54,8 +57,12 @@
 
 <div class="w-96 w-max-1/2 mt-16 mx-auto h-screen">
 	<form class="flex flex-col gap-6">
-		<h1 class="text-center text-4xl font-bold">Create an account</h1>
+		<Turnstile
+			siteKey="0x4AAAAAAADkoUBguXE2CRSD"
+			on:turnstile-callback={event => (token = event.detail.token)}
+		/>
 
+		<h1 class="text-center text-4xl font-bold">Create an account</h1>
 		<div class="grid gap-6 md:grid-cols-2">
 			<div class="form-control w-full">
 				<label class="label" for="display-name">

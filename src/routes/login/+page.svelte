@@ -11,19 +11,22 @@
 </script>
 
 <script lang="ts">
+	import { Turnstile } from 'svelte-turnstile';
 	import Navbar from '$/components/Navbar.svelte';
 	import { goto } from '$app/navigation';
 
 	let email = '';
 	let password = '';
 	let error = false;
+	let token: string | undefined;
 
 	async function logIn() {
 		const response = await fetch('https://api.hackthefeed.com/auth/login', {
 			method: 'POST',
 			body: JSON.stringify({
 				username: email,
-				password: password,
+				password,
+				token,
 			}),
 			headers: {
 				'Content-Type': 'application/json',
@@ -49,6 +52,11 @@
 
 <div class="w-96 w-max-1/2 mt-16 mx-auto h-screen">
 	<form class="flex flex-col gap-6">
+		<Turnstile
+			siteKey="0x4AAAAAAADkoUBguXE2CRSD"
+			on:turnstile-callback={event => (token = event.detail.token)}
+		/>
+
 		<h1 class="text-center text-4xl font-bold">Log in</h1>
 		<div class="form-control w-full">
 			<label class="label" for="email">
@@ -112,9 +120,9 @@
 				Log in with Microsoft
 			</a>
 
-			<button type="submit" on:click={logIn} class="btn btn-accent"
-				>Log in</button
-			>
+			<button type="submit" on:click={logIn} class="btn btn-accent">
+				Log in
+			</button>
 
 			<span class="mx-auto">
 				<a href="/register">

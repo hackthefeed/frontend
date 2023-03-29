@@ -34,6 +34,7 @@
 		"svelte-bricks": "^0.1.7",
 		"svelte-infinite-scroll": "^2.0.1",
 		"svelte-time": "^0.7.1",
+		"svelte-turnstile": "^0.3.1",
 		"theme-change": "^2.5.0"
 	}
 }

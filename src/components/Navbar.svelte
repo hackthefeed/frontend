@@ -2,9 +2,14 @@
 	import Theme from './theme/Theme.svelte';
 
 	export let loggedIn = false;
+	export let ghost = false;
 </script>
 
-<div class="navbar bg-base-100">
+<div
+	class="navbar backdrop-blur-sm z-10 {ghost
+		? 'text-neutral-content absolute top-0'
+		: 'bg-base-100/[0.8]'}"
+>
 	<div class="navbar-start">
 		<div class="dropdown">
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->

@@ -18,6 +18,7 @@ specifiers:
   svelte-check: ^2.9.2
   svelte-infinite-scroll: ^2.0.1
   svelte-time: ^0.7.1
+  svelte-turnstile: ^0.3.1
   tailwindcss: ^3.2.7
   theme-change: ^2.5.0
   tslib: ^2.4.1
@@ -30,6 +31,7 @@ dependencies:
   svelte-bricks: 0.1.7
   svelte-infinite-scroll: 2.0.1
   svelte-time: 0.7.1
+  svelte-turnstile: 0.3.1
   theme-change: 2.5.0
 
 devDependencies:
@@ -2186,6 +2188,10 @@ packages:
     resolution: {integrity: sha512-E7IL/85j7oj5fhxvmlau616TUbFfa6Vyy1PFTL3Y8SJGY6NXJaUj7DOYJrXVdoS3Rm9RVST0M6qWd6vqrYgM+w==}
     dependencies:
       dayjs: 1.11.7
+    dev: false
+
+  /svelte-turnstile/0.3.1:
+    resolution: {integrity: sha512-b0A90zMMjm0U0S1zOP9R+msnG8+kBJNspBiLVzwaH7uOUmjFLt8ujArqlHWQhXj+bRZEMM2dXIYBykVDku7pXg==}
     dev: false
 
   /svelte/3.57.0:

@@ -37,10 +37,7 @@
 		<div class="grid grid-cols-1 gap-3 p-3" tabindex="0">
 			<ThemeItem theme="light" name="Light" />
 			<ThemeItem theme="dark" name="Dark" />
-			<ThemeItem theme="black" name="Black" />
 			<ThemeItem theme="synthwave" name="Synthwave" />
-			<ThemeItem theme="lofi" name="Lofi" />
-			<ThemeItem theme="pastel" name="Pastel" />
 		</div>
 	</div>
 </div>
