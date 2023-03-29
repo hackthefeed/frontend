@@ -31,7 +31,7 @@
 		>
 	</div>
 	<div
-		class="dropdown-content bg-base-100/[0.8] backdrop-blur-sm text-base-content rounded-t-box rounded-b-box top-px w-52 overflow-y-auto shadow-2xl mt-16"
+		class="dropdown-content bg-base-100 text-base-content rounded-t-box rounded-b-box top-px w-52 overflow-y-auto shadow-2xl mt-16 bg-opacity-50 backdrop-blur-sm"
 	>
 		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 		<div class="grid grid-cols-1 gap-3 p-3" tabindex="0">

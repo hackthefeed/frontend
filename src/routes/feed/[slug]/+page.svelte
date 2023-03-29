@@ -39,7 +39,7 @@
 	<div class="my-12">
 		{#if data.props.post.thumbnail}
 			<img
-				class="w-full h-96 object-cover rounded-xl mb-4"
+				class="w-full object-cover rounded-xl mb-4"
 				src={data.props.post.thumbnail}
 				alt=""
 			/>
