@@ -19,7 +19,7 @@
 	<title>HackTheFeed</title>
 </svelte:head>
 
-<div class="absolute top-0 left-0 w-full backdrop-blur-sm">
+<div class="absolute top-0 left-0 w-full backdrop-blur-sm z-10">
 	<Navbar loggedIn={key !== null} />
 </div>
 
