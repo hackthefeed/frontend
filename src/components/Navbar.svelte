@@ -2,14 +2,9 @@
 	import Theme from './theme/Theme.svelte';
 
 	export let loggedIn = false;
-	export let ghost = false;
 </script>
 
-<div
-	class="navbar backdrop-blur-sm z-10 {ghost
-		? 'absolute top-0'
-		: 'bg-base-100/[0.8]'}"
->
+<div class="navbar backdrop-blur-sm z-10 bg-base-100/[0.8]">
 	<div class="navbar-start">
 		<div class="dropdown">
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -34,9 +29,7 @@
 			<!-- svelte-ignore a11y-label-has-associated-control -->
 			<ul
 				tabindex="0"
-				class="menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52 {ghost
-					? 'text-neutral-content absolute top-0'
-					: 'bg-base-100/[0.8]'}"
+				class="menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52 bg-base-100/[0.8]"
 			>
 				<li><a href="/">Home</a></li>
 				<li><a href="/feeds">Feeds</a></li>
