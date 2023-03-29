@@ -7,7 +7,7 @@
 
 <div
 	class="navbar backdrop-blur-sm z-10 {ghost
-		? 'text-neutral-content absolute top-0'
+		? 'absolute top-0'
 		: 'bg-base-100/[0.8]'}"
 >
 	<div class="navbar-start">
