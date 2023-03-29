@@ -17,8 +17,9 @@
 
 	let email = '';
 	let password = '';
-	let error = false;
+	let error: string | undefined;
 	let token: string | undefined;
+	let captcha: Turnstile;
 
 	async function logIn() {
 		const response = await fetch('https://api.hackthefeed.com/auth/login', {
@@ -35,9 +36,9 @@
 
 		const data: LoginResponse = await response.json();
 
-		if (!data.success) return (error = true);
+		if (!data.success) return (error = data.message);
 
-		error = false;
+		error = undefined;
 		localStorage.setItem('key', `Bearer ${data.data}`);
 
 		goto('/feed');
@@ -55,6 +56,7 @@
 		<Turnstile
 			siteKey="0x4AAAAAAADkoUBguXE2CRSD"
 			on:turnstile-callback={event => (token = event.detail.token)}
+			bind:this={captcha}
 		/>
 
 		<h1 class="text-center text-4xl font-bold">Log in</h1>
@@ -73,9 +75,7 @@
 			/>
 			{#if error}
 				<label class="label" for="email">
-					<span class="label-text-alt text-error"
-						>Invalid username or password.</span
-					>
+					<span class="label-text-alt text-error">{error}</span>
 				</label>
 			{/if}
 		</div>
@@ -95,9 +95,7 @@
 			/>
 			{#if error}
 				<label class="label" for="password">
-					<span class="label-text-alt text-error"
-						>Invalid username or password.</span
-					>
+					<span class="label-text-alt text-error">{error}</span>
 				</label>
 			{/if}
 		</div>

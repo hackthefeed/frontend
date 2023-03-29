@@ -40,6 +40,7 @@
 		const data: RegisterResponse = await response.json();
 
 		if (data.success) {
+			error = undefined;
 			localStorage.setItem('key', `Bearer ${data.data}`);
 
 			goto('/feed');

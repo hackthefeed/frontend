@@ -34,7 +34,9 @@
 			<!-- svelte-ignore a11y-label-has-associated-control -->
 			<ul
 				tabindex="0"
-				class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+				class="menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52 {ghost
+					? 'text-neutral-content absolute top-0'
+					: 'bg-base-100/[0.8]'}"
 			>
 				<li><a href="/">Home</a></li>
 				<li><a href="/feeds">Feeds</a></li>
