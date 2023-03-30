@@ -277,7 +277,7 @@
 {#if posts !== null && posts.length > 0}
 	<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
 		<Masonry items={posts} gap={30} minColWidth={500} let:item>
-			<div class="card card-bordered w-full border-neutral">
+			<div class="card card-bordered w-full border-neutral bg-base-100">
 				{#if item.thumbnail}
 					<figure>
 						<a href="/feed/{item.id}">

@@ -4,7 +4,7 @@
 	export let loggedIn = false;
 </script>
 
-<div class="navbar bg-base-100 z-50 relative">
+<div class="navbar bg-base-100 z-50 relative bg-opacity-20">
 	<div class="navbar-start">
 		<div class="dropdown">
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->

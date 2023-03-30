@@ -17,12 +17,30 @@ const config = {
 	],
 	daisyui: {
 		themes: [
-			'black',
-			'synthwave',
-			'lofi',
-			'pastel',
-			'light',
-			'dark',
+			{
+				'light': {
+					...require('daisyui/src/colors/themes')['[data-theme=light]'],
+					'.bg-gradient-dots': {
+						'background-image': 'radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.2) 1px, transparent 0);'
+					}
+				},
+			},
+			{
+				'dark': {
+					...require('daisyui/src/colors/themes')['[data-theme=dark]'],
+					'.bg-gradient-dots': {
+						'background-image': 'radial-gradient(circle at 1px 1px, rgba(70, 70, 70, 0.7) 1px, transparent 0);'
+					}
+				},
+			},
+			{
+				'synthwave': {
+					...require('daisyui/src/colors/themes')['[data-theme=synthwave]'],
+					'.bg-gradient-dots': {
+						'background-image': 'radial-gradient(circle at 1px 1px, rgba(70, 70, 70, 0.7) 1px, transparent 0);'
+					}
+				},
+			},
 		]
 	}
 };
