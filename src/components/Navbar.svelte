@@ -65,10 +65,10 @@
 	<div class="navbar-end flex gap-2">
 		<Theme />
 		{#if !loggedIn}
-			<a class="btn btn-primary rounded-full" href="/login">Log in</a>
+			<a class="btn btn-ghost" href="/login">Log in</a>
 		{:else}
 			<a
-				class="btn btn-primary rounded-full"
+				class="btn btn-ghost"
 				on:click={() => localStorage.removeItem('key')}
 				href="/login"
 			>
