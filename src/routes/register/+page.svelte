@@ -132,6 +132,11 @@
 				class="input input-bordered w-full input-primary"
 				bind:value={password}
 			/>
+			{#if passwordError}
+				<label class="label" for="password">
+					<span class="label-text-alt text-error">{passwordError}</span>
+				</label>
+			{/if}
 		</div>
 
 		<div class="grid gap-2">
