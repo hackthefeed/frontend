@@ -105,7 +105,7 @@
 	{:else}
 		<div class="grid place-items-center w-screen h-screen -mt-8">
 			<div
-				class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-primary w-8 h-8"
+				class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-accent w-8 h-8"
 				role="status"
 				aria-label="loading"
 			/>

@@ -70,7 +70,7 @@
 				placeholder="hello@hackthefeed.com"
 				class="input input-bordered w-full {error
 					? 'input-error'
-					: 'input-primary'}"
+					: 'input-accent'}"
 				bind:value={email}
 			/>
 			{#if error}
@@ -90,7 +90,7 @@
 				placeholder="•••••••••"
 				class="input input-bordered w-full {error
 					? 'input-error'
-					: 'input-primary'}"
+					: 'input-accent'}"
 				bind:value={password}
 			/>
 			{#if error}
@@ -118,7 +118,7 @@
 				Log in with Microsoft
 			</a>
 
-			<button type="submit" on:click={logIn} class="btn btn-accent">
+			<button type="submit" on:click={logIn} class="btn btn-primary">
 				Log in
 			</button>
 

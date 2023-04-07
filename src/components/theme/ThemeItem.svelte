@@ -36,9 +36,9 @@
 				>
 				<div class="flex-grow text-sm font-bold">{name}</div>
 				<div class="flex flex-shrink-0 flex-wrap gap-1 h-full">
-					<div class="bg-primary w-2 rounded" />
-					<div class="bg-secondary w-2 rounded" />
 					<div class="bg-accent w-2 rounded" />
+					<div class="bg-secondary w-2 rounded" />
+					<div class="bg-primary w-2 rounded" />
 					<div class="bg-neutral w-2 rounded" />
 				</div>
 			</div>

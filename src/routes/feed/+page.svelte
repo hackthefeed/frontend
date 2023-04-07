@@ -288,7 +288,7 @@
 
 				<div class="card-body">
 					<a href="/feed/{item.id}">
-						<h2 class="card-title hover:underline text-accent line-clamp-2">
+						<h2 class="card-title hover:underline text-primary line-clamp-2">
 							{@html item.title}
 						</h2>
 					</a>
@@ -302,7 +302,7 @@
 							{#if item.notes.length}
 								<label
 									for="edit-note-modal"
-									class="btn btn-sm btn-primary"
+									class="btn btn-sm btn-accent"
 									on:click={() => viewNotes(item)}
 									on:keydown
 								>
@@ -343,7 +343,7 @@
 	{#if loading}
 		<div class="grid place-items-center w-screen h-32 -mt-8">
 			<div
-				class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-primary w-8 h-8"
+				class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-accent w-8 h-8"
 				role="status"
 				aria-label="loading"
 			/>
@@ -355,7 +355,7 @@
 	<div class="h-screen w-screen grid place-items-center -mt-8">
 		<span>
 			<h1 class="text-4xl font-bold">You don't have any news yet!</h1>
-			<a href="/feeds" class="btn btn-primary w-full">
+			<a href="/feeds" class="btn btn-accent w-full">
 				View available feeds
 				<svg
 					aria-hidden="true"
@@ -376,7 +376,7 @@
 {:else}
 	<div class="grid place-items-center w-screen h-screen -mt-8">
 		<div
-			class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-primary w-8 h-8"
+			class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-accent w-8 h-8"
 			role="status"
 			aria-label="loading"
 		/>

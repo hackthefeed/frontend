@@ -38,6 +38,10 @@
 			<ThemeItem theme="light" name="Light" />
 			<ThemeItem theme="dark" name="Dark" />
 			<ThemeItem theme="synthwave" name="Synthwave" />
+			<ThemeItem theme="lemonade" name="Lemonade" />
+			<ThemeItem theme="autumn" name="Autumn" />
+			<ThemeItem theme="valentine" name="Valentine" />
+			<ThemeItem theme="aqua" name="Aqua" />
 		</div>
 	</div>
 </div>

@@ -23,7 +23,7 @@
 		</p>
 
 		<span class="float-middle">
-			<a href="/" class="btn btn-primary rounded-full">
+			<a href="/" class="btn btn-accent rounded-full">
 				<svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
 					<path
 						transform="scale(-1, 1) translate(-20, 0)"

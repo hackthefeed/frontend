@@ -83,7 +83,7 @@
 		{/if}
 
 		<a href={data.props.post.url}>
-			<h1 class="text-2xl font-bold hover:underline mb-4">
+			<h1 class="text-2xl font-bold hover:underline mb-4 text-primary">
 				{@html data.props.post.title}
 			</h1>
 		</a>
@@ -95,7 +95,7 @@
 
 	<div>
 		{#if insights === null}
-			<button class="btn btn-primary" on:click={fetchInsights}>
+			<button class="btn btn-accent" on:click={fetchInsights}>
 				View insights
 				<svg
 					aria-hidden="true"
@@ -112,7 +112,7 @@
 				</svg>
 			</button>
 		{:else if insights.length === 0}
-			<button class="btn btn-primary loading"> View insights </button>
+			<button class="btn btn-accent loading"> View insights </button>
 		{:else}
 			<h1 class="text-2xl font-bold mb-4">Your personalized insights</h1>
 
@@ -159,7 +159,7 @@
 				{#each data.props.post.comments ?? [] as comment}
 					<div class="flex flex-col gap-1">
 						<span>
-							<h1 class="text-lg font-bold text-accent inline">
+							<h1 class="text-lg font-bold text-primary inline">
 								{comment.author.displayName || comment.author.username}
 							</h1>
 							<Time

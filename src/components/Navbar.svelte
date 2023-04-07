@@ -40,7 +40,7 @@
 		</div>
 		<a class="btn btn-ghost normal-case text-xl" href="/">
 			<svg
-				class="mr-3 h-6 sm:h-9 fill-accent"
+				class="mr-3 h-6 sm:h-9 fill-primary"
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"
 				height="24"
@@ -50,7 +50,7 @@
 					d="M21,11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1L21,5V11M12,21C15.75,20 19,15.54 19,11.22V6.3L12,3.18V21Z"
 				/>
 			</svg>
-			<span class="text-accent">Hack</span>TheFeed
+			<span class="text-primary">Hack</span>TheFeed
 		</a>
 	</div>
 	<div class="navbar-center hidden lg:flex">

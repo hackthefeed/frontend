@@ -81,7 +81,7 @@
 					id="display-name"
 					placeholder="Hack the Feed"
 					required
-					class="input input-bordered w-full input-primary"
+					class="input input-bordered w-full input-accent"
 					bind:value={displayName}
 				/>
 			</div>
@@ -95,7 +95,7 @@
 					id="username"
 					placeholder="hackthefeed"
 					required
-					class="input input-bordered w-full input-primary"
+					class="input input-bordered w-full input-accent"
 					bind:value={username}
 				/>
 			</div>
@@ -112,7 +112,7 @@
 				required
 				class="input input-bordered w-full {error
 					? 'input-error'
-					: 'input-primary'}"
+					: 'input-accent'}"
 				bind:value={email}
 			/>
 			{#if error}
@@ -131,7 +131,7 @@
 				id="password"
 				placeholder="•••••••••"
 				required
-				class="input input-bordered w-full input-primary"
+				class="input input-bordered w-full input-accent"
 				bind:value={password}
 			/>
 			{#if passwordError}
@@ -146,7 +146,7 @@
 				type="submit"
 				on:click={register}
 				color="green"
-				class="btn btn-accent">Register</button
+				class="btn btn-primary">Register</button
 			>
 
 			<span class="mx-auto">
