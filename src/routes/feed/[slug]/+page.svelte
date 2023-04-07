@@ -168,7 +168,7 @@
 			<h1 class="text-2xl font-bold mb-4">Your personalized insights</h1>
 
 			<div class="text-lg whitespace-pre-line prose">
-				{insights.join('')}
+				{@html insights.join('')}
 			</div>
 		{/if}
 	</div>
