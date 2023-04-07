@@ -11,7 +11,7 @@
 			$page.url.searchParams.delete('key');
 			localStorage.setItem('key', `Bearer ${key}`);
 
-			goto('/');
+			goto('/feed');
 		} else {
 			key = localStorage.getItem('key');
 		}
