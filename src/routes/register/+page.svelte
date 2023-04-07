@@ -21,14 +21,28 @@
 	let password = '';
 	let token: string | undefined;
 
-	let error: string | undefined;
-	let passwordError: string | undefined;
+	const messages: Record<string, string> = {
+		invalid_captcha: 'Invalid captcha token',
+		invalid_email: 'Invalid email address',
+		password_too_common: 'Password is too common',
+		email_or_username_taken: 'Email or username is already taken',
+	};
+
+	let errors = {
+		username: undefined as string | undefined,
+		email: undefined as string | undefined,
+		password: undefined as string | undefined,
+	};
 
 	async function register() {
 		if (password.length < 8) {
-			return (passwordError = 'Password must be at least 8 characters long');
+			errors.password = 'Password must be at least 8 characters long';
+			errors = errors;
+
+			return;
 		} else {
-			passwordError = undefined;
+			errors.password = undefined;
+			errors = errors;
 		}
 
 		const response = await fetch('https://api.hackthefeed.com/auth/register', {
@@ -47,12 +61,32 @@
 		const data: RegisterResponse = await response.json();
 
 		if (data.success) {
-			error = undefined;
+			errors.email = undefined;
+			errors.username = undefined;
+
 			localStorage.setItem('key', `Bearer ${data.data}`);
 
 			goto('/feed');
 		} else {
-			error = data.message;
+			if (data.message === 'invalid_captcha') {
+				errors.email = messages[data.message];
+				errors.username = messages[data.message];
+				errors.password = messages[data.message];
+			} else if (data.message === 'invalid_email') {
+				errors.email = messages[data.message];
+				errors.username = undefined;
+				errors.password = undefined;
+			} else if (data.message === 'password_too_common') {
+				errors.email = undefined;
+				errors.username = undefined;
+				errors.password = messages[data.message];
+			} else if (data.message === 'email_or_username_taken') {
+				errors.email = messages[data.message];
+				errors.username = messages[data.message];
+				errors.password = undefined;
+			}
+
+			errors = errors;
 		}
 	}
 </script>
@@ -95,9 +129,16 @@
 					id="username"
 					placeholder="hackthefeed"
 					required
-					class="input input-bordered w-full input-accent"
+					class="input input-bordered w-full {errors.username
+						? 'input-error'
+						: 'input-accent'}"
 					bind:value={username}
 				/>
+				{#if errors.username}
+					<label class="label" for="username">
+						<span class="label-text-alt text-error">{errors.username}</span>
+					</label>
+				{/if}
 			</div>
 		</div>
 
@@ -110,14 +151,14 @@
 				id="email"
 				placeholder="hello@hackthefeed.com"
 				required
-				class="input input-bordered w-full {error
+				class="input input-bordered w-full {errors.email
 					? 'input-error'
 					: 'input-accent'}"
 				bind:value={email}
 			/>
-			{#if error}
+			{#if errors.email}
 				<label class="label" for="email">
-					<span class="label-text-alt text-error">{error}</span>
+					<span class="label-text-alt text-error">{errors.email}</span>
 				</label>
 			{/if}
 		</div>
@@ -131,12 +172,14 @@
 				id="password"
 				placeholder="•••••••••"
 				required
-				class="input input-bordered w-full input-accent"
+				class="input input-bordered w-full {errors.password
+					? 'input-error'
+					: 'input-accent'}"
 				bind:value={password}
 			/>
-			{#if passwordError}
+			{#if errors.password}
 				<label class="label" for="password">
-					<span class="label-text-alt text-error">{passwordError}</span>
+					<span class="label-text-alt text-error">{errors.password}</span>
 				</label>
 			{/if}
 		</div>
