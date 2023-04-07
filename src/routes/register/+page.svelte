@@ -20,6 +20,7 @@
 	let email = '';
 	let password = '';
 	let token: string | undefined;
+	let widgetId: string;
 
 	const messages: Record<string, string> = {
 		invalid_captcha: 'Invalid captcha token',
@@ -68,6 +69,8 @@
 
 			goto('/feed');
 		} else {
+			window.turnstile.reset(widgetId);
+
 			if (data.message === 'invalid_captcha') {
 				errors.email = messages[data.message];
 				errors.username = messages[data.message];
@@ -102,6 +105,7 @@
 		<Turnstile
 			siteKey="0x4AAAAAAADkoUBguXE2CRSD"
 			on:turnstile-callback={event => (token = event.detail.token)}
+			bind:widgetId
 		/>
 
 		<h1 class="text-center text-4xl font-bold">Create an account</h1>
