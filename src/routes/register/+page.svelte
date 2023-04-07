@@ -22,8 +22,13 @@
 	let token: string | undefined;
 
 	let error: string | undefined;
+	let passwordError: string | undefined;
 
 	async function register() {
+		if (password.length < 8) {
+			return (passwordError = 'Password must be at least 8 characters long');
+		}
+
 		const response = await fetch('https://api.hackthefeed.com/auth/register', {
 			method: 'POST',
 			body: JSON.stringify({
