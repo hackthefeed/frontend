@@ -127,8 +127,8 @@
 			<div class="relative mb-12">
 				<form>
 					<input
-						type="search"
-						id="search"
+						type="text"
+						id="comment"
 						class="input input-bordered w-full rounded-full block"
 						placeholder="Write a comment"
 						required
@@ -139,7 +139,7 @@
 						type="submit"
 						class="absolute right-3 bottom-3"
 						disabled={!comment}
-						on:click={postComment}
+						on:click|preventDefault={postComment}
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
