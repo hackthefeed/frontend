@@ -6,16 +6,16 @@ const config = {
 	theme: {
 		extend: {
 			fontSize: {
-				"10xl": "12rem",
+				'10xl': '12rem',
+			},
+			typography: {
+				DEFAULT: {
+					css: {
+						maxWidth: 'full',
+					},
+				},
 			},
 		},
-		typography: {
-			DEFAULT: {
-				css: {
-					maxWidth: 'full',
-				}
-			}
-		}
 	},
 	plugins: [
 		require('@tailwindcss/line-clamp'),
