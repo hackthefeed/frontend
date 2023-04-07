@@ -4,6 +4,34 @@
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
 
+	type ChatCompletionChoice =
+		| {
+				delta: {
+					content: string;
+					role?: string;
+				};
+				index: number;
+				finish_reason: null;
+		  }
+		| {
+				delta: {
+					role: string;
+					content?: string;
+				};
+				index: number;
+				finish_reason: null;
+		  }
+		| {
+				delta: object;
+				index: number;
+				finish_reason: 'stop';
+		  };
+
+	type ChatCompletionChunk = {
+		id: string;
+		choices: ChatCompletionChoice[];
+	};
+
 	export let data: PageData;
 
 	let comment = '';
@@ -50,12 +78,45 @@
 		const stream = response.body!;
 		const reader = stream.getReader();
 
+		let prev: string[] = [];
+
 		for (;;) {
 			const { done, value } = await reader.read();
 			if (done) break;
 
-			insights.push(new TextDecoder('utf-8').decode(value));
-			insights = insights;
+			const raw = new TextDecoder('utf-8').decode(value);
+
+			for (const data of raw.split('\n')) {
+				try {
+					const json: ChatCompletionChunk = JSON.parse(data);
+
+					if (json.choices[0].finish_reason === 'stop') return;
+					if (json.choices[0].delta.content === undefined) continue;
+
+					insights.push(json.choices[0].delta.content);
+					insights = insights;
+				} catch {
+					if (prev.length) {
+						try {
+							const json: ChatCompletionChunk = JSON.parse(
+								prev.join('') + data
+							);
+
+							if (json.choices[0].finish_reason === 'stop') return;
+							if (json.choices[0].delta.content === undefined) continue;
+
+							insights.push(json.choices[0].delta.content);
+							insights = insights;
+
+							prev = [];
+						} catch {
+							prev.push(data);
+						}
+					} else {
+						prev.push(data);
+					}
+				}
+			}
 		}
 	}
 </script>
