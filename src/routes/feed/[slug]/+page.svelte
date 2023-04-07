@@ -165,9 +165,7 @@
 		{:else if insights.length === 0}
 			<button class="btn btn-primary loading"> View insights </button>
 		{:else}
-			<h1 class="text-2xl font-bold hover:underline mb-4">
-				Your personalized insights
-			</h1>
+			<h1 class="text-2xl font-bold mb-4">Your personalized insights</h1>
 
 			<div class="text-lg whitespace-pre-line prose">
 				{insights.join('')}
