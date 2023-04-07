@@ -4,8 +4,12 @@
 	import '../app.postcss';
 </script>
 
-<slot />
-
 {#if $page.url.pathname !== '/'}
+	<div class="min-h-screen">
+		<slot />
+	</div>
+
 	<Footer />
+{:else}
+	<slot />
 {/if}
