@@ -2,13 +2,16 @@
 	import Navbar from '../components/Navbar.svelte';
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
 
 	let key: string | null = $page.url.searchParams.get('key');
 
 	if (browser) {
 		if (key) {
 			$page.url.searchParams.delete('key');
-			localStorage.setItem('key', key);
+			localStorage.setItem('key', `Bearer ${key}`);
+
+			goto('/');
 		} else {
 			key = localStorage.getItem('key');
 		}
