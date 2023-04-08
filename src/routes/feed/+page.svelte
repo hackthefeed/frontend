@@ -344,7 +344,7 @@
 			/>
 		</div>
 	{:else}
-		<InfiniteScroll threshold={2_000} on:loadMore={fetchSubscriptions} window />
+		<InfiniteScroll threshold={1_500} on:loadMore={fetchSubscriptions} />
 	{/if}
 {:else if posts !== null && posts.length === 0}
 	<div class="h-screen w-screen grid place-items-center -mt-8">
