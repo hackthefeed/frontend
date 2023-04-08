@@ -45,9 +45,12 @@
 	 */
 	function buildCommentTree(comments: CommentData[]) {
 		const tree: CommentData[] = [];
+		const idToComment = new Map<string, CommentData>();
 
 		for (let i = comments.length - 1; i >= 0; i--) {
 			const comment = comments[i];
+
+			idToComment.set(comment.id, comment);
 
 			if (comment.parentId === null) {
 				tree.unshift(comment);
@@ -55,8 +58,7 @@
 				continue;
 			}
 
-			const parent = comments.find(c => c.id === comment.parentId);
-
+			const parent = idToComment.get(comment.parentId);
 			if (parent === undefined) continue;
 
 			if (parent.children) {
