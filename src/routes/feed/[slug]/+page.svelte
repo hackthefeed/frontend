@@ -1,12 +1,15 @@
 <script lang="ts">
-	import Time from 'svelte-time';
 	import type { PageData } from './$types';
 	import { user } from '$/stores/auth';
+	import type { Comment as CommentData } from '$/app';
+	import Comment from '$/components/Comment.svelte';
 
 	export let data: PageData;
 
 	let comment = '';
 	let insights: string[] | null = null;
+
+	data.props.post.comments = buildCommentTree(data.props.post.comments ?? []);
 
 	function sleep(ms: number) {
 		return new Promise(r => setTimeout(r, ms));
@@ -35,6 +38,35 @@
 
 		comment = '';
 		data = data;
+	}
+
+	/**
+	 * @param comments Comments in descending order
+	 */
+	function buildCommentTree(comments: CommentData[]) {
+		const tree: CommentData[] = [];
+
+		for (let i = comments.length - 1; i >= 0; i--) {
+			const comment = comments[i];
+
+			if (comment.parentId === null) {
+				tree.unshift(comment);
+
+				continue;
+			}
+
+			const parent = comments.find(c => c.id === comment.parentId);
+
+			if (parent === undefined) continue;
+
+			if (parent.children) {
+				parent.children.unshift(comment);
+			} else {
+				parent.children = [comment];
+			}
+		}
+
+		return tree;
 	}
 
 	async function fetchInsights() {
@@ -149,20 +181,7 @@
 
 			<div class="flex flex-col gap-6 mt-3">
 				{#each data.props.post.comments ?? [] as comment}
-					<div class="flex flex-col gap-1">
-						<span>
-							<h1 class="text-lg font-bold text-primary inline">
-								{comment.author.displayName || comment.author.username}
-							</h1>
-							<Time
-								timestamp={comment.createdAt}
-								relative
-								class="text-sm inline"
-							/>
-						</span>
-
-						<p class="text-lg">{@html comment.content}</p>
-					</div>
+					<Comment {comment} postId={data.props.post.id} />
 				{/each}
 			</div>
 		</div>

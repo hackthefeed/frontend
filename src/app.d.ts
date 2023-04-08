@@ -2,17 +2,20 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {
-	
+
 }
 
 export type Comment = {
-	id: number;
+	id: string;
 	content: string;
+	parentId: string | null;
 	author: {
 		username: string;
 		displayName: string;
 	};
 	createdAt: string;
+	// this property is not returned by the API
+	children?: Comment[];
 };
 
 export type Post = {

@@ -336,7 +336,7 @@
 		</Masonry>
 	</div>
 	{#if loading}
-		<div class="grid place-items-center w-screen h-32 -mt-8">
+		<div class="grid place-items-center h-32 w-full">
 			<div
 				class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-accent w-8 h-8"
 				role="status"
@@ -369,7 +369,7 @@
 		</span>
 	</div>
 {:else}
-	<div class="grid place-items-center w-screen h-screen -mt-8">
+	<div class="grid place-items-center w-full min-h-screen">
 		<div
 			class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-accent w-8 h-8"
 			role="status"
