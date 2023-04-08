@@ -10,6 +10,7 @@
 	import Masonry from 'svelte-bricks';
 
 	import type { Socket } from 'socket.io-client';
+	import { user } from '$/stores/auth';
 
 	let key: string | null = null;
 	let posts: Post[] | null = null;
@@ -19,15 +20,13 @@
 	let end = false;
 
 	if (browser) {
-		key = localStorage.getItem('key');
-
-		if (key === null) {
+		if ($user === null) {
 			goto('/login');
 		} else {
 			socket = io('wss://api.hackthefeed.com', {
 				path: '/ws',
 				extraHeaders: {
-					Authorization: key,
+					Authorization: $user,
 				},
 			});
 
@@ -172,7 +171,7 @@
 	<title>My Feed</title>
 </svelte:head>
 
-<Header loggedIn={key !== null} />
+<Header />
 
 <input type="checkbox" id="edit-note-modal" class="modal-toggle" />
 <div class="modal">

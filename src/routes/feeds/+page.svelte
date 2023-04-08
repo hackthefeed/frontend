@@ -9,19 +9,14 @@
 <script lang="ts">
 	import Navbar from '$/components/Navbar.svelte';
 	import { goto } from '$app/navigation';
-	import { browser } from '$app/environment';
+	import { user } from '$/stores/auth';
 
-	let key: string | null = null;
 	let producers: Producer[] | null = null;
 
-	if (browser) {
-		key = localStorage.getItem('key');
-
-		if (key === null) {
-			goto('/login');
-		} else {
-			getProducers();
-		}
+	if ($user === null) {
+		goto('/login');
+	} else {
+		getProducers();
 	}
 
 	async function getProducers() {
@@ -29,7 +24,7 @@
 			`https://api.hackthefeed.com/me/subscriptions`,
 			{
 				headers: {
-					Authorization: key!,
+					Authorization: $user!,
 				},
 			}
 		);
@@ -42,7 +37,7 @@
 	function subscribe(producer: Producer) {
 		fetch(`https://api.hackthefeed.com/sources/${producer.id}/subscribe`, {
 			headers: {
-				Authorization: key!,
+				Authorization: $user!,
 			},
 		});
 
@@ -53,7 +48,7 @@
 	function unsubscribe(producer: Producer) {
 		fetch(`https://api.hackthefeed.com/sources/${producer.id}/unsubscribe`, {
 			headers: {
-				Authorization: key!,
+				Authorization: $user!,
 			},
 		});
 
@@ -66,9 +61,9 @@
 	<title>Feeds</title>
 </svelte:head>
 
-<Navbar loggedIn={key !== null} />
+<Navbar />
 
-{#if key}
+{#if $user}
 	{#if producers !== null && producers.length > 0}
 		<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
 			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -111,4 +106,12 @@
 			/>
 		</div>
 	{/if}
+{:else}
+	<div class="grid place-items-center w-screen h-screen -mt-8">
+		<div
+			class="animate-spin inline-block border-[3px] border-current border-t-transparent rounded-full text-accent w-8 h-8"
+			role="status"
+			aria-label="loading"
+		/>
+	</div>
 {/if}

@@ -1,17 +1,9 @@
 <script>
 	import Navbar from '../components/Navbar.svelte';
 	import { page } from '$app/stores';
-	import { browser } from '$app/environment';
-
-	const key = $page.url.searchParams.get('key');
-
-	if (key && browser) {
-		$page.url.searchParams.delete('key');
-		localStorage.setItem('key', key);
-	}
 </script>
 
-<Navbar loggedIn={key !== null} />
+<Navbar />
 
 <div class="mx-auto max-w-[85rem] px-20 gap-10 mt-20 h-screen">
 	<span>

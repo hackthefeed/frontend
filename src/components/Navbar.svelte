@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Theme from './theme/Theme.svelte';
+	import { user } from '$/stores/auth';
 
-	export let loggedIn = false;
+	$: loggedIn = $user !== null;
 </script>
 
 <div class="navbar bg-base-100 z-50 relative bg-opacity-20">
@@ -32,8 +33,12 @@
 				class="menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52 bg-base-100 bg-opacity-50 backdrop-blur-sm"
 			>
 				<li><a href="/">Home</a></li>
-				<li><a href="/feeds">Feeds</a></li>
-				<li><a href="/feed">My Feed</a></li>
+
+				{#if loggedIn}
+					<li><a href="/feeds">Feeds</a></li>
+					<li><a href="/feed">My Feed</a></li>
+				{/if}
+
 				<li><a href="/faq">FAQ</a></li>
 				<li><a href="https://api.hackthefeed.com/docs">API</a></li>
 			</ul>
@@ -56,8 +61,12 @@
 	<div class="navbar-center hidden lg:flex">
 		<ul class="menu menu-horizontal px-1">
 			<li><a href="/">Home</a></li>
-			<li><a href="/feeds">Feeds</a></li>
-			<li><a href="/feed">My Feed</a></li>
+
+			{#if loggedIn}
+				<li><a href="/feeds">Feeds</a></li>
+				<li><a href="/feed">My Feed</a></li>
+			{/if}
+
 			<li><a href="/faq">FAQ</a></li>
 			<li><a href="https://api.hackthefeed.com/docs">API</a></li>
 		</ul>
@@ -67,11 +76,7 @@
 		{#if !loggedIn}
 			<a class="btn btn-ghost" href="/login">Log in</a>
 		{:else}
-			<a
-				class="btn btn-ghost"
-				on:click={() => localStorage.removeItem('key')}
-				href="/login"
-			>
+			<a class="btn btn-ghost" on:click={() => ($user = null)} href="/login">
 				Log out
 			</a>
 		{/if}

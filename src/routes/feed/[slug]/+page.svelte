@@ -2,17 +2,12 @@
 	import Navbar from '$/components/Navbar.svelte';
 	import Time from 'svelte-time';
 	import type { PageData } from './$types';
-	import { onMount } from 'svelte';
+	import { user } from '$/stores/auth';
 
 	export let data: PageData;
 
 	let comment = '';
-	let key: string | null;
 	let insights: string[] | null = null;
-
-	onMount(() => {
-		key = localStorage.getItem('key');
-	});
 
 	function sleep(ms: number) {
 		return new Promise(r => setTimeout(r, ms));
@@ -28,7 +23,7 @@
 				}),
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: key!,
+					Authorization: $user!,
 				},
 			}
 		);
@@ -122,7 +117,7 @@
 		{/if}
 	</div>
 
-	{#if key}
+	{#if $user}
 		<div class="w-full" id="comments">
 			<div class="relative mb-12">
 				<form>

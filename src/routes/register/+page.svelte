@@ -14,6 +14,7 @@
 	import { Turnstile } from 'svelte-turnstile';
 	import Navbar from '$/components/Navbar.svelte';
 	import { goto } from '$app/navigation';
+	import { user } from '$/stores/auth';
 
 	let displayName = '';
 	let username = '';
@@ -65,7 +66,7 @@
 			errors.email = undefined;
 			errors.username = undefined;
 
-			localStorage.setItem('key', `Bearer ${data.data}`);
+			$user = `Bearer ${data.data}`;
 
 			goto('/feed');
 		} else {

@@ -1,26 +1,14 @@
 <script lang="ts">
 	import Navbar from '$/components/Navbar.svelte';
+	import { user } from '$/stores/auth';
 	import { page } from '$app/stores';
-	import { browser } from '$app/environment';
-
-	let key: string | null = $page.url.searchParams.get('key');
-	const items = Array(3);
-
-	if (browser) {
-		if (key) {
-			$page.url.searchParams.delete('key');
-			localStorage.setItem('key', key);
-		} else {
-			key = localStorage.getItem('key');
-		}
-	}
 </script>
 
 <svelte:head>
 	<title>FAQ</title>
 </svelte:head>
 
-<Navbar loggedIn={key !== null} />
+<Navbar />
 
 <div class="w-2/3 max-w-4xl m-auto mt-24 h-screen">
 	<h1 class="text-9xl text-center font-bold mb-16">FAQ</h1>
@@ -44,7 +32,7 @@
 		<div class="collapse-title text-xl font-medium">How do I sign up?</div>
 		<div class="collapse-content">
 			<p>
-				{#if key === null}
+				{#if $user !== null}
 					You can sign up by <a href="/register" class="underline"
 						>clicking here</a
 					> or the "Log in" button in the top right.

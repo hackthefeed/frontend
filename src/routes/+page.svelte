@@ -3,17 +3,15 @@
 	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
+	import { user } from '$/stores/auth';
 
 	let key: string | null = $page.url.searchParams.get('key');
 
 	if (browser) {
 		if (key) {
-			$page.url.searchParams.delete('key');
-			localStorage.setItem('key', `Bearer ${key}`);
+			$user = `Bearer ${key}`;
 
 			goto('/feed');
-		} else {
-			key = localStorage.getItem('key');
 		}
 	}
 </script>
@@ -23,7 +21,7 @@
 </svelte:head>
 
 <div class="absolute top-0 left-0 w-full">
-	<Navbar loggedIn={key !== null} />
+	<Navbar />
 </div>
 
 <div class="relative">
