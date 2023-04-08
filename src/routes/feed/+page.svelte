@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { Post } from '$/app';
-	import Header from '$/components/Navbar.svelte';
 	import { goto } from '$app/navigation';
-	import { browser } from '$app/environment';
 	import { io } from 'socket.io-client';
 
 	import Time from 'svelte-time';
@@ -11,15 +9,15 @@
 
 	import type { Socket } from 'socket.io-client';
 	import { user } from '$/stores/auth';
+	import { onMount } from 'svelte';
 
-	let key: string | null = null;
 	let posts: Post[] | null = null;
 	let socket: Socket;
 	let page = 1;
 	let loading = false;
 	let end = false;
 
-	if (browser) {
+	onMount(() => {
 		if ($user === null) {
 			goto('/login');
 		} else {
@@ -39,7 +37,7 @@
 
 			fetchSubscriptions();
 		}
-	}
+	});
 
 	async function fetchSubscriptions() {
 		// don't fetch if we're already loading
@@ -53,7 +51,7 @@
 			`https://api.hackthefeed.com/me/feed?page=${usePage}`,
 			{
 				headers: {
-					Authorization: key!,
+					Authorization: $user!,
 				},
 			}
 		);
@@ -93,7 +91,7 @@
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: key!,
+					Authorization: $user!,
 				},
 				body: JSON.stringify({
 					content: encryptedContent,
@@ -170,8 +168,6 @@
 <svelte:head>
 	<title>My Feed</title>
 </svelte:head>
-
-<Header />
 
 <input type="checkbox" id="edit-note-modal" class="modal-toggle" />
 <div class="modal">

@@ -1,14 +1,10 @@
 <script lang="ts">
-	import Navbar from '$/components/Navbar.svelte';
 	import { user } from '$/stores/auth';
-	import { page } from '$app/stores';
 </script>
 
 <svelte:head>
 	<title>FAQ</title>
 </svelte:head>
-
-<Navbar />
 
 <div class="w-2/3 max-w-4xl m-auto mt-24 h-screen">
 	<h1 class="text-9xl text-center font-bold mb-16">FAQ</h1>

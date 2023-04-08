@@ -12,7 +12,6 @@
 
 <script lang="ts">
 	import { Turnstile } from 'svelte-turnstile';
-	import Navbar from '$/components/Navbar.svelte';
 	import { goto } from '$app/navigation';
 	import { user } from '$/stores/auth';
 
@@ -99,9 +98,7 @@
 	<title>Register</title>
 </svelte:head>
 
-<Navbar />
-
-<div class="w-96 w-max-1/2 mt-16 mx-auto h-screen">
+<div class="w-96 w-max-1/2 mx-auto min-h-screen grid place-items-center">
 	<form class="flex flex-col gap-6">
 		<Turnstile
 			siteKey="0x4AAAAAAADkoUBguXE2CRSD"

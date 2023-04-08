@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Navbar from '$/components/Navbar.svelte';
 	import Time from 'svelte-time';
 	import type { PageData } from './$types';
 	import { user } from '$/stores/auth';
@@ -64,8 +63,6 @@
 		}
 	}
 </script>
-
-<Navbar />
 
 <div class="px-12 max-w-4xl mx-auto flex flex-col gap-10 min-h-screen my-16">
 	<div>

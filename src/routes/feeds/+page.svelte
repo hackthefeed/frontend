@@ -7,17 +7,19 @@
 </script>
 
 <script lang="ts">
-	import Navbar from '$/components/Navbar.svelte';
 	import { goto } from '$app/navigation';
 	import { user } from '$/stores/auth';
+	import { onMount } from 'svelte';
 
 	let producers: Producer[] | null = null;
 
-	if ($user === null) {
-		goto('/login');
-	} else {
-		getProducers();
-	}
+	onMount(() => {
+		if ($user === null) {
+			goto('/login');
+		} else {
+			getProducers();
+		}
+	});
 
 	async function getProducers() {
 		const response = await fetch(
@@ -60,8 +62,6 @@
 <svelte:head>
 	<title>Feeds</title>
 </svelte:head>
-
-<Navbar />
 
 {#if $user}
 	{#if producers !== null && producers.length > 0}

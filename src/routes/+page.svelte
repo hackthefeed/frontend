@@ -1,28 +1,23 @@
 <script lang="ts">
-	import Navbar from '../components/Navbar.svelte';
 	import { page } from '$app/stores';
-	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { user } from '$/stores/auth';
+	import { onMount } from 'svelte';
 
 	let key: string | null = $page.url.searchParams.get('key');
 
-	if (browser) {
+	onMount(() => {
 		if (key) {
 			$user = `Bearer ${key}`;
 
 			goto('/feed');
 		}
-	}
+	});
 </script>
 
 <svelte:head>
 	<title>HackTheFeed</title>
 </svelte:head>
-
-<div class="absolute top-0 left-0 w-full">
-	<Navbar />
-</div>
 
 <div class="relative">
 	<div class="absolute bottom-0 left-0 w-full overflow-hidden leading-0">

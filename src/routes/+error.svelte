@@ -1,10 +1,3 @@
-<script>
-	import Navbar from '../components/Navbar.svelte';
-	import { page } from '$app/stores';
-</script>
-
-<Navbar />
-
 <div class="mx-auto max-w-[85rem] px-20 gap-10 mt-20 h-screen">
 	<span>
 		<h1 class="text-8xl lg:text-10xl font-bold">404</h1>

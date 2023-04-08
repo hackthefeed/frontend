@@ -12,7 +12,6 @@
 
 <script lang="ts">
 	import { Turnstile } from 'svelte-turnstile';
-	import Navbar from '$/components/Navbar.svelte';
 	import { goto } from '$app/navigation';
 	import { user } from '$/stores/auth';
 
@@ -54,10 +53,8 @@
 	<title>Log in</title>
 </svelte:head>
 
-<Navbar />
-
-<div class="w-96 w-max-1/2 mt-16 mx-auto h-screen">
-	<form class="flex flex-col gap-6">
+<div class="w-96 w-max-1/2 mx-auto min-h-screen grid place-items-center">
+	<form class="flex flex-col gap-6 w-full">
 		<Turnstile
 			siteKey="0x4AAAAAAADkoUBguXE2CRSD"
 			on:turnstile-callback={event => (token = event.detail.token)}
