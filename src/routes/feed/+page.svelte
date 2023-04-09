@@ -347,7 +347,7 @@
 		<InfiniteScroll threshold={1_500} on:loadMore={fetchSubscriptions} />
 	{/if}
 {:else if posts !== null && posts.length === 0}
-	<div class="h-screen w-screen grid place-items-center -mt-8">
+	<div class="min-h-screen w-full grid place-items-center -mt-8">
 		<span>
 			<h1 class="text-4xl font-bold">You don't have any news yet!</h1>
 			<a href="/feeds" class="btn btn-accent w-full">
